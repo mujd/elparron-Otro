@@ -7,6 +7,7 @@ function pedidoEspecialProgramacionDiariaDesplegarTortas(oData) {
 	var total = 0;
 	var granTotal = 0;
 	var htmlFilaPE = "";
+	var numero = "";
 
 	$(oData).each(function () {
 		if (this.diet == 0) {
@@ -19,9 +20,13 @@ function pedidoEspecialProgramacionDiariaDesplegarTortas(oData) {
 		} else {
 			this.forma = 'Cuadrada';
 		}
+		
+		for (var i = 0; i < 1; i++) {
+			numero += i;
+		}
 		htmlFilaPE = htmlFilaPE + `
             <tbody><tr class=''>
-                <td>` + this.id + `</td>
+                <td>` + numero + `</td>
 				<td>` + this.masaTipo_nombre + ` ` + this.masaSabor_nombre + ` ` + this.sabor_nombre + `</td>
 				<td>` + this.personas + `</td>
 				<td>` + this.forma + `</td>
@@ -47,7 +52,7 @@ function pedidoEspecialProgramacionDiariaDesplegarTortas(oData) {
 }
 
 function programacionDiariaBuscarPedidoEspecial() {
-	var pedidoEspecialFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + ($("#dateProgramacionDiaria").val().split("/")[0]);
+	var pedidoEspecialFecha = $("#dateProgramacionDiaria").val().split("/")[2] + "-" + $("#dateProgramacionDiaria").val().split("/")[1] + "-" + ($("#dateProgramacionDiaria").val().split("/")[0]);
 	var pedidoEspecialSucural = $("#cmbProgramacionDiariaSucursal").val();
 	ajaxGet(rutaURL + "/pedidoEspecial/" + pedidoEspecialFecha + "/" + pedidoEspecialSucural, pedidoEspecialProgramacionDiariaDesplegarTortas);
 }
