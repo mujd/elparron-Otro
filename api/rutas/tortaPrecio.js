@@ -8,7 +8,7 @@ function REST_ROUTER(router, connection, md5) {
 REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 
     // Listar
-    router.get("/tortaPrecio", function(req, res){
+    /* router.get("/tortaPrecio", function(req, res){
         connection.query("SELECT * FROM tortaPrecio ORDER BY id", function(err, rows){
             if(err){
                 res.json({"error": err});
@@ -16,7 +16,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
                 res.json(rows);
             }
         });
-    });
+    }); */
 
     // Buscar
     router.get("/tortaPrecio/:id", function(req, res){
@@ -29,28 +29,38 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
 
-    // Buscar por Detalle GENERAL
-    router.get("/tortaPrecio/general", function(req, res){
-        connection.query("SELECT * FROM tortaPrecio ORDER BY id", function(err, rows){
-            if(err){
-                res.json({"error": err});
-            }else{
-                res.json(rows);
-            }
-        });
+    // Buascar tortaPrecio con detalle
+	router.get("/tortaPrecio", function(req, res){
+		connection.query(
+			 `SELECT TP.id,
+                    TOR.id AS torta_id,
+                    MTP.id AS masaTipo_id,
+					MTP.nombre AS masaTipo_nombre,
+					MSB.id AS masaSabor_id,
+					MSB.nombre AS masaSabor_nombre,
+					SAB.id AS sabor_id,
+					SAB.nombre AS sabor_nombre,
+                    TAM.id AS tamano_id,
+                    TAM.num AS num,
+                    TAM.personas AS personas,
+                    PRE.id AS precio_id,
+                    PRE.precio AS torta_precio
+            FROM tortaPrecio TP INNER JOIN torta TOR ON TP.torta_id = TOR.id
+                                    INNER JOIN masaTipo MTP ON TOR.masaTipo_id = MTP.id
+					                INNER JOIN masaSabor MSB ON TOR.masaSabor_id = MSB.id
+					                INNER JOIN sabor SAB ON TOR.sabor_id = SAB.id
+                                    INNER JOIN tamano TAM ON TP.tamano_id = TAM.id
+                                    INNER JOIN precio PRE ON TP.precio_id = PRE.id
+			ORDER	BY
+					TP.id`, function (err, rows) {
+                if (err) {
+                    res.json({ "error": err });
+                } else {
+                    res.json(rows);
+                }
+            });
     });
 
-
-// Buscar por Detalle GENERAL
-    router.get("/tortaPrecio/listado", function(req, res){
-        connection.query("SELECT PT.id, TOR.id AS torta_id, MT.masaTipo_nombre TAM.id AS Tamano_id, TAM.num AS tamano_num, TAM.personas AS tamano_personas, PRE.id AS precio_id, PRE.precio AS precio_precio FROM torta TOR INNER JOIN masaTipo MT ON TOR.masaTipo_id = MT.id INNER JOIN tortaPrecio PT ON TOR.id = PT.torta_id INNER JOIN tamano TAM ON TAM.id = PT.tamano_id INNER JOIN precio PRE ON PRE.id = PT.precio_id ORDER BY PT.id", function(err, rows) {
-            if(err){
-                res.json({"error": err});
-            }else{
-                res.json(rows);
-            }
-        });
-    });
 
     // Insertar
     router.post("/tortaPrecio", function(req, res){

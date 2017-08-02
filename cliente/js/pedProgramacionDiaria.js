@@ -39,7 +39,7 @@ function pedidoProgramacionDiariaDesplegarTortas(oData) {
 }
 
 function programacionDiariaBuscarPedido() {
-	var pedidoFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + ($("#dateProgramacionDiaria").val().split("/")[0]) - 1;
+	var pedidoFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + ($("#dateProgramacionDiaria").val().split("/")[0]);
 	var pedidoSucural = $("#cmbProgramacionDiariaSucursal").val();
 	ajaxGet(rutaURL + "/pedido/" + pedidoFecha + "/" + pedidoSucural, programacionDiariaDesplegarPedido);
 }
@@ -49,11 +49,7 @@ function programacionDiariaDesplegarPedido(oData) {
 	// programacionDiariaNuevo(true);
 	for (var i = 0; i < oData[0].detalle.length; i++) {
         item = oData[0].detalle[i];
-        // if (item.tamano_id === 1 && item.torta_id === 1){
-        //     cantidad = 3;
-		// }
-		cantidad = 1;
-		$("#txtPedidoCantidad_" + item.torta_id + "_" + item.tamano_id).val(cantidad);
+		$("#txtPedidoCantidad_" + item.torta_id + "_" + item.tamano_id).val(item.cantidad);
 	}
 	// alert(JSON.stringify(oData));
 	programacionDiariaTotalizaPedido();

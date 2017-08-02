@@ -29,42 +29,8 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
         });
     });
 
-    // Buscar por masatipo
-    /*router.get("/masaTipo/masaSabor/:masaTipo_id", function(req, res){
-        connection.query("SELECT masaSabor_id FROM torta WHERE masaTipo_id = " + req.params.masaTipo_id, function(err, rows){
-            if(err){
-                res.json({"error": err});
-            }else{
-                res.json(rows);
-            }
-        });
-    });*/
-
-// LISTAR ID DE SABOR
-    router.get("/masaTipo/masaSabor/:masaTipo_id", function(req, res){
-        connection.query("SELECT ms.id, ms.nombre FROM masaSabor AS ms INNER JOIN torta AS tor ON ms.id = tor.masaSabor_id WHERE tor.masaTipo_id = " + req.params.id, function(err, rows){
-            if(err){
-                res.json({"error": err});
-            }else{
-                res.json(rows);
-            }
-        });
-
-    });
-
-    /*router.get("/tipoMasa/saborMasa/:id", function(req, res){
-        connection.query("SELECT ms.id, ms.nombre FROM masaSabor AS ms INNER JOIN torta AS tor ON ms.id = tor.masaSabor_id WHERE tor.masaTipo_id = " + req.params.id, function(err, rows){
-            if(err){
-                res.json({"error": err});
-            }else{
-                res.json(rows);
-            }
-        });
-
-    });*/
-
     // Búsqueda por ID
-    router.get("/tipoMasa/saborMasa/:id", function(req, res){
+    router.get("/masaTipo/masaSabor/:id", function(req, res){
         connection.query("SELECT ms.id, ms.nombre FROM masaSabor AS ms INNER JOIN torta AS tor ON ms.id = tor.masaSabor_id WHERE tor.masaTipo_id = " + req.params.id, function(err, rows){
             if(err) {
                 res.json({"error": err});

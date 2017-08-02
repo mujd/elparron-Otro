@@ -3,7 +3,7 @@
 <div class="panel panel-default">
 	<div class="panel-body" id="panelPedido">
 		<div class="row">
-			
+
 			<!-- FECHA ENTREGA -->
 			<div class="col-md-3 col-xs-12 col-sm-6">
 				<div class="form-group">
@@ -29,7 +29,7 @@
 			<div class="btn-group-md btn-toolbar pull-right programacionDiaria-botones" id="divMenu">
 				<button id="btnNuevoProgramacionDiaria" class="btn btn-primary m-b-boton" title="Vacia Programacion Diaria">Nuevo</button>
 				<button id="btnRegistrarProgramacionDiaria" class="btn btn-primary" title="Registrar nueva Programacion Diaria">Registrar</button>
-				<button id="btnImprimirProgramacionDiaria" class="btn btn-primary" title="Imprimir Programacion Diaria">Imprimir</button>
+				<button id="btnImprimirProgramacionDiaria" onclick="pdfBuscar();" class="btn btn-primary" title="Imprimir Programacion Diaria">Imprimir</button>
 			</div>
 			<div class="col-md-4 text-center" id="divErrorsProgramacionDiaria"></div>
 			<!-- Inicio modal Validacion -->
@@ -76,10 +76,9 @@
 			<!-- /.modal -->
 		</div>
 		<!-- Primera fila tablas -->
-		<div class="row">
-
+		<div class="row" id="contenidoFilaUno">
 			<!--Programacion Normal-->
-			<div class="table-responsive col-md-6 programacionDiaria-rueda-panel">
+			<div id="divProgramacionDiaria" class="table-responsive col-md-6 programacionDiaria-rueda-panel page1">
 				<table id="tabProgramacionDiaria" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
 					<thead>
 						<tr>
@@ -99,7 +98,7 @@
 
 
 			<!--Sobrantes dia anterior-->
-			<div class="table-responsive col-md-6 programacionDiaria-rueda-panel">
+			<div id="divProgramacionDiariaOtro" class="table-responsive col-md-6 programacionDiaria-rueda-panel page2">
 				<table id="tabSobranteProgramacionDiaria" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
 					<thead>
 						<tr>
@@ -122,7 +121,7 @@
 		<!-- Segunda fila tablas -->
 		<div class="row">
 			<!--Programacion Diaria Pedido-->
-			<div class="table-responsive col-md-6 programacionDiaria-rueda-panel">
+			<div id="divProgramacionDiariaOtroOtro" class="table-responsive col-md-6 programacionDiaria-rueda-panel page3">
 				<table id="tabPedidoProgramacionDiaria" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
 					<thead>
 						<tr>
@@ -143,7 +142,7 @@
 				</table>
 			</div>
 			<!--Programacion Diaria Pedido Especial-->
-			<div class="table-responsive col-md-6 programacionDiaria-rueda-panel">
+			<div id="divPEPD" class="table-responsive col-md-6 programacionDiaria-rueda-panel">
 				<table id="tabPedidoEspecialProgramacionDiaria" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
 					<thead>
 						<tr>
@@ -164,6 +163,9 @@
 
 	</div>
 </div>
+<script type="text/javascript" src="js/pdfProgramacionDiaria.js"></script>
+<script src="js/jspdf.debug.js"></script>
+<script src="js/jspdf.min.js"></script>
 <script src="js/sobProgramacionDiaria.js"></script>
 <script src="js/pedEspProgramacionDiaria.js"></script>
 <script src="js/pedProgramacionDiaria.js"></script>
@@ -174,27 +176,6 @@
 		sobProDiariaCarga();
 		pedProDiariaCarga();
 		pedidoEspecialProDiariaCarga();
+		// pdfBuscar();
 	});
-
-	function demoFromHTML() {
-		var doc = new jsPDF('p', 'in', 'letter');
-		var source = $('#testcase').first();
-		var specialElementHandlers = {
-			'#bypassme': function (element, renderer) {
-				return true;
-			}
-		};
-
-		doc.fromHTML(
-			source, // HTML string or DOM elem ref.
-			0.5, // x coord
-			0.5, // y coord
-			{
-				'width': 7.5, // max width of content on PDF
-				'elementHandlers': specialElementHandlers
-			});
-
-		doc.output('dataurl');
-	}
-
 </script>

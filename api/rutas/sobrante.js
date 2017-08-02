@@ -56,6 +56,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 					SUC.id AS sucursal_id,
 					SUC.nombre AS sucursal_nombre,
 					SDET.cantidad,
+					TOR.id as torta_id,
 					MTP.id AS masaTipo_id,
 					MTP.nombre AS masaTipo_nombre,
 					MSB.id AS masaSabor_id,

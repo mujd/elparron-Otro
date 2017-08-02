@@ -28,18 +28,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
             }
         });
     });
-
-    // Buscar por sabor
-    /*router.get("/masaSabor/sabor/:masaTipo_id/:masaSabor_id", function(req, res){
-        connection.query("SELECT sabor_id FROM torta WHERE masaTipo_id = " + req.params.masaTipo_id + " AND masaSabor_id = " + req.params.masaSabor_id, function(err, rows){
-            if(err){
-                res.json({"error": err});
-            }else{
-                res.json(rows);
-            }
-        });
-    });*/
-
+    
     // Búsqueda  SABOR por MASA TIPO Y MASA SABOR
     router.get("/masaSabor/sabor/:masaTipo_id/:masaSabor_id", function(req, res){
         connection.query("SELECT s.id, s.nombre FROM sabor AS s INNER JOIN torta AS tor ON s.id = tor.sabor_id WHERE tor.masaTipo_id = " + req.params.masaTipo_id + " AND tor.masaSabor_id = " + req.params.masaSabor_id, function(err, rows){

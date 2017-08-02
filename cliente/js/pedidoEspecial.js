@@ -191,7 +191,7 @@ function desplegarTortaIdEsp(oData) { // Despliega la id de la torta
 /* Masa sabor por masa tipo */
 
 function masaTipoMasaSaborMostrarEsp() { // Solicita a la API los sabores de masa (todas)
-	ajaxGet(rutaURL + "/tipoMasa/saborMasa/" + $("#cmbTipoMasa").val(), masasaborDesplegarEspEsp);
+	ajaxGet(rutaURL + "/masaTipo/masaSabor/" + $("#cmbTipoMasa").val(), masasaborDesplegarEspEsp);
 }
 
 function masasaborDesplegarEspEsp(oData) { // Despliega el sabor de la masa solicitadas a la API

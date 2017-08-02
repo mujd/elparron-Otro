@@ -80,8 +80,9 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 					                INNER JOIN sabor SAB ON TOR.sabor_id = SAB.id
                                     INNER JOIN tamano TAM ON PES.tamano_id = TAM.id
                                     INNER JOIN sucursal SUC ON PES.sucursal_id = SUC.id
-			WHERE 	LEFT(PES.fechaEntrega, 10) = "` + req.params.fechaEntrega + `" AND
-                    SUC.id = ` + req.params.sucursal_id + ` 
+			WHERE   DATE_FORMAT(fechaEntrega, "%Y%m%d") = "` + req.params.fechaEntrega + `" AND
+                    SUC.id = ` + req.params.sucursal_id + ` AND
+                    DATE_FORMAT(PES.fechaEntrega, "%Y%m%d") 
 			ORDER	BY
 					PES.id`, function (err, rows) {
                 if (err) {

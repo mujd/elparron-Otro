@@ -179,7 +179,7 @@ $("#ulTorta li").remove();
 /* Masa sabor por masa tipo */
 
 function masaTipoMasaSaborMostrar() { // Solicita a la API los sabores de masa (todas)
-	ajaxGet(rutaURL + "/tipoMasa/saborMasa/" + $("#cmbTipoMasa").val(), masaSaborDesplegar);
+	ajaxGet(rutaURL + "/masaTipo/masaSabor/" + $("#cmbTipoMasa").val(), masaSaborDesplegar);
 }
 
 function masaSaborDesplegar(oData) { // Despliega el sabor de la masa solicitadas a la API
