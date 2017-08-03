@@ -66,7 +66,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
                     TAM.num AS num,
                     TAM.personas AS personas,
                     PES.precio AS precio,
-                    DATE_FORMAT(PES.fechaEntrega,'%d/%m/%Y %H:%i:%s') AS fechaEntrega,
+                    DATE_FORMAT(PES.fechaEntrega,'%H:%i') AS fechaEntrega,
                     SUC.id AS sucursal_id,
                     SUC.nombre AS sucursal_nombre,
                     PES.caracteristicas AS caracteristicas,
