@@ -29,7 +29,7 @@
 			<div class="btn-group-md btn-toolbar pull-right programacionDiaria-botones" id="divMenu">
 				<button id="btnNuevoProgramacionDiaria" class="btn btn-primary m-b-boton" title="Vacia Programacion Diaria">Nuevo</button>
 				<button id="btnRegistrarProgramacionDiaria" class="btn btn-primary" title="Registrar nueva Programacion Diaria">Registrar</button>
-				<button id="btnImprimirProgramacionDiaria" onclick="pdfBuscar();" class="btn btn-primary" title="Imprimir Programacion Diaria">Imprimir</button>
+				<button id="btnImprimirProgramacionDiaria" class="btn btn-primary" title="Imprimir Programacion Diaria">Imprimir</button>
 			</div>
 			<div class="col-md-4 text-center" id="divErrorsProgramacionDiaria"></div>
 			<!-- Inicio modal Validacion -->
@@ -160,12 +160,16 @@
 				</table>
 			</div>
 		</div>
-
+		<div id="output" style="display:none"></div>
+		<div id="outputPedidoEspecial" style="display:none"></div>
 	</div>
 </div>
-<script type="text/javascript" src="js/pdfProgramacionDiaria.js"></script>
-<script src="js/jspdf.debug.js"></script>
-<script src="js/jspdf.min.js"></script>
+<script type="text/javascript" src="js/pdfProgramacionDiariaNormal.js"></script>
+<script type="text/javascript" src="js/pdfProgramacionDiariaPedido.js"></script>
+<script type="text/javascript" src="js/pdfProgramacionDiariaPedidoEspecial.js"></script>
+ <script src="js/jspdf.debug.js"></script> 
+<script src="js/jquery.qrcode.min.js"></script>
+<!-- <script src="js/jspdf.min.js"></script> -->
 <script src="js/sobProgramacionDiaria.js"></script>
 <script src="js/pedEspProgramacionDiaria.js"></script>
 <script src="js/pedProgramacionDiaria.js"></script>
@@ -176,6 +180,10 @@
 		sobProDiariaCarga();
 		pedProDiariaCarga();
 		pedidoEspecialProDiariaCarga();
-		// pdfBuscar();
+		pdfProgramacionDiariaPedidoCargar();
+		pdfProgramacionDiariaPedidoEspecialCargar();
+		pdfProgramacionDiariaNormalCargar();
 	});
+
 </script>
+<!-- todo lo q es programacion fija lleva "VENTA" -->

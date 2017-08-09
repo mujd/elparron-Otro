@@ -152,7 +152,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
     router.get("/pedido/:fechaEntrega/:sucursal_id", function (req, res) {
         var cSQL = `
             SELECT  MAX(PED.id) AS id,
-                    MAX(DATE_FORMAT(PED.fechaEntrega,'%d/%m/%Y %H:%i:%s')) AS fechaEntrega,
+                    MAX(DATE_FORMAT(PED.fechaEntrega,'%d/%m/%Y %H:%i')) AS fechaEntrega,
                     MAX(SUC.id) AS sucursal_id,
                     MAX(SUC.nombre) AS sucursal_nombre,
                     COUNT(1) AS cantidad,
@@ -201,6 +201,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
                     }
                     json[json.length - 1].detalle.push(
                         {
+                            id: rows[item].id,
                             torta_id: rows[item].torta_id,
                             cantidad: rows[item].cantidad,
                             masaTipo_id: rows[item].masaTipo_id,
@@ -210,7 +211,11 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
                             sabor_id: rows[item].sabor_id,
                             sabor_nombre: rows[item].sabor_nombre,
                             tamano_id: rows[item].tamano_id,
-                            personas: rows[item].personas
+                            personas: rows[item].personas,
+                            fechaEntrega: rows[item].fechaEntrega,
+                            telefono: rows[item].telefono,
+                            solicitante: rows[item].solicitante,
+                            precio: rows[item].precio
                         }
                     );
                     anterior_id = rows[item].id;

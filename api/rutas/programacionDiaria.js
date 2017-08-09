@@ -63,6 +63,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 					SAB.id AS sabor_id,
 					SAB.nombre AS sabor_nombre,
 					TAM.id AS tamano_id,
+					TAM.num AS num,
 					TAM.personas AS personas,
 					TOR.id AS torta_id
 			FROM 	programacionDiariaCab SCAB INNER JOIN sucursal SUC ON SCAB.sucursal_id = SUC.id
@@ -96,6 +97,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 					}
 					json[json.length - 1].detalle.push(
 					{	
+						id_diaria: rows[item].id,
 						torta_id: rows[item].torta_id,
 						cantidad: rows[item].cantidad,
 						masaTipo_id: rows[item].masaTipo_id,
@@ -105,7 +107,9 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 						sabor_id: rows[item].sabor_id,
 						sabor_nombre: rows[item].sabor_nombre,
 						tamano_id: rows[item].tamano_id,
-						personas: rows[item].personas
+						num: rows[item].num,
+						personas: rows[item].personas,
+						fecha: rows[item].fecha
 					}
 					);
 					anterior_id = rows[item].id;
