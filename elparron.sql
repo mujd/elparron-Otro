@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2017 a las 21:49:35
+-- Tiempo de generación: 11-08-2017 a las 20:12:37
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 7.1.1
 
@@ -85,11 +85,50 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id`, `torta_id`, `solicitante`, `telefono`, `tamano_id`, `precio`, `fechaEntrega`, `sucursalRetiro`) VALUES
-(8, 1, 'Pablo Mendez', '821235645', 2, 5000, '2017-05-30 07:00:00', 4),
-(10, 3, 'Jose Ca?as', '54321', 1, 5000, '2017-05-06 12:35:56', 1),
-(15, 1, 'qas', '21321', 1, 1000, '2017-06-01 13:09:00', 1),
-(16, 1, 'pedro', '52165232', 4, 5000, '2017-06-01 13:24:00', 1),
-(19, 1, 'Rollo', '76258215', 2, 10000, '2017-06-07 03:49:00', 2);
+(1, 1, 'Max Rojas', '21358234', 1, 10000, '2017-07-18 00:00:00', 1),
+(2, 1, 'Pablo Mendez', '654654654', 2, 20000, '2017-07-18 00:00:00', 1),
+(3, 1, 'Federico fritz', '6556456435', 3, 30000, '2017-07-18 00:00:00', 1),
+(4, 1, 'Claudio Matus', '2132345245', 4, 40000, '2017-07-18 00:00:00', 1),
+(5, 2, 'asawdsss', '21312312', 1, 21321, '2017-07-18 00:00:00', 1),
+(6, 2, 'qwewqe', '213213', 1, 12321, '2017-07-18 00:00:00', 1),
+(7, 3, 'Tomy Rojas Flores', '46455665', 1, 10000, '2017-07-18 01:24:00', 1),
+(8, 1, 'Rollo El vikingo', '2713272', 2, 10000, '2017-07-18 10:28:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidoespecial`
+--
+
+CREATE TABLE `pedidoespecial` (
+  `id` int(11) NOT NULL,
+  `torta_id` int(11) NOT NULL,
+  `solicitante` varchar(50) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `tamano_id` int(11) NOT NULL,
+  `precio` int(11) NOT NULL,
+  `fechaEntrega` datetime NOT NULL,
+  `sucursal_id` int(11) NOT NULL,
+  `caracteristicas` text NOT NULL,
+  `mensaje` varchar(255) NOT NULL,
+  `abono` int(11) NOT NULL,
+  `forma` tinyint(1) NOT NULL,
+  `diet` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `pedidoespecial`
+--
+
+INSERT INTO `pedidoespecial` (`id`, `torta_id`, `solicitante`, `telefono`, `tamano_id`, `precio`, `fechaEntrega`, `sucursal_id`, `caracteristicas`, `mensaje`, `abono`, `forma`, `diet`) VALUES
+(1, 1, 'Maximiliano Rojas', '2725885', 1, 10000, '2017-07-18 00:00:00', 1, 'Dibujo Batman', 'Feliz cumpleaños Maxi', 5000, 1, 0),
+(2, 2, 'Pablo Mendez', '65214562', 2, 20000, '2017-07-18 00:00:00', 1, 'Torta de cumpleaños', 'Feliz cumple pablo!!', 10000, 0, 1),
+(3, 6, 'Claudio Matus', '85215875', 3, 30000, '2017-07-18 00:00:00', 1, 'Dibujo Ironman', 'Feliz cumpleaños Claudio!', 15000, 1, 1),
+(4, 3, 'Camila Rios', '45564465', 2, 20000, '2017-07-18 00:00:00', 1, 'Toques rosados', 'aa', 10000, 1, 1),
+(5, 1, 'Fabian Pozo', '5446546', 1, 10000, '2017-07-18 23:12:00', 1, 'Mucha piña', 'Feliz cumpleaños!', 5000, 0, 1),
+(6, 1, 'Rick Sanchez', '8798789', 1, 10000, '2017-07-18 10:33:00', 1, 'Dibujo Nave Espacial', 'Feliz cumpleaño Beth!', 1000, 0, 0),
+(7, 1, 'Morty Smith', '514654', 1, 10000, '2017-07-18 10:34:00', 1, 'Dibujo', 'Feliz cumpleaños Jesica!', 1000, 0, 0),
+(8, 1, 'Rollo ', '546654654', 1, 10000, '2017-07-18 10:41:00', 1, 'Dibujo', 'Feliz Cumpleaños', 1000, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -114,6 +153,168 @@ INSERT INTO `precio` (`id`, `precio`) VALUES
 (5, 50000),
 (6, 60000),
 (7, 70000);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programaciondiariacab`
+--
+
+CREATE TABLE `programaciondiariacab` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `sucursal_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `programaciondiariacab`
+--
+
+INSERT INTO `programaciondiariacab` (`id`, `fecha`, `sucursal_id`) VALUES
+(4, '2017-07-18', 1),
+(5, '2017-07-18', 2),
+(6, '2017-08-11', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programaciondiariaesp`
+--
+
+CREATE TABLE `programaciondiariaesp` (
+  `id` int(11) NOT NULL,
+  `programacionDiariaCab_id` int(11) NOT NULL,
+  `pedidoEspecial_id` int(11) NOT NULL,
+  `impreso` datetime DEFAULT NULL,
+  `fabricado` datetime DEFAULT NULL,
+  `camioneta` datetime DEFAULT NULL,
+  `guiaDespacho` datetime DEFAULT NULL,
+  `recepcionado` datetime DEFAULT NULL,
+  `vendido` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programaciondiarianor`
+--
+
+CREATE TABLE `programaciondiarianor` (
+  `id` int(11) NOT NULL,
+  `programacionDiariaCab_id` int(11) NOT NULL,
+  `torta_id` int(11) NOT NULL,
+  `tamano_id` int(11) NOT NULL,
+  `impreso` datetime DEFAULT NULL,
+  `fabricado` datetime DEFAULT NULL,
+  `camioneta` datetime DEFAULT NULL,
+  `guiaDespacho` datetime DEFAULT NULL,
+  `recepcionado` datetime DEFAULT NULL,
+  `vendido` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `programaciondiarianor`
+--
+
+INSERT INTO `programaciondiarianor` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `impreso`, `fabricado`, `camioneta`, `guiaDespacho`, `recepcionado`, `vendido`) VALUES
+(17, 6, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 6, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 6, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 6, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programaciondiariaped`
+--
+
+CREATE TABLE `programaciondiariaped` (
+  `id` int(11) NOT NULL,
+  `programacionDiariaCab_id` int(11) NOT NULL,
+  `torta_id` int(11) NOT NULL,
+  `tamano_id` int(11) NOT NULL,
+  `impreso` datetime DEFAULT NULL,
+  `fabricado` datetime DEFAULT NULL,
+  `camioneta` datetime DEFAULT NULL,
+  `guiaDespacho` datetime DEFAULT NULL,
+  `recepcionado` datetime DEFAULT NULL,
+  `vendido` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `programaciondiariaped`
+--
+
+INSERT INTO `programaciondiariaped` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `impreso`, `fabricado`, `camioneta`, `guiaDespacho`, `recepcionado`, `vendido`) VALUES
+(9, 6, 4, 4, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `programaciondiariasob`
+--
+
+CREATE TABLE `programaciondiariasob` (
+  `id` int(11) NOT NULL,
+  `programacionDiariaCab_id` int(11) NOT NULL,
+  `torta_id` int(11) NOT NULL,
+  `tamano_id` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Volcado de datos para la tabla `programaciondiariasob`
+--
+
+INSERT INTO `programaciondiariasob` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
+(194, 4, 1, 1, 3),
+(195, 4, 1, 2, 1),
+(196, 4, 1, 3, 1),
+(197, 4, 1, 4, 1),
+(198, 4, 2, 1, 1),
+(199, 4, 2, 2, 1),
+(200, 4, 2, 3, 1),
+(201, 4, 2, 4, 1),
+(202, 4, 3, 1, 1),
+(203, 4, 3, 2, 1),
+(204, 4, 3, 3, 1),
+(205, 4, 3, 4, 1),
+(206, 4, 4, 1, 1),
+(207, 4, 4, 2, 1),
+(208, 4, 4, 3, 1),
+(209, 4, 4, 4, 1),
+(210, 4, 5, 1, 1),
+(211, 4, 5, 2, 1),
+(212, 4, 5, 3, 1),
+(213, 4, 5, 4, 1),
+(214, 4, 6, 1, 1),
+(215, 4, 6, 2, 1),
+(216, 4, 6, 3, 1),
+(217, 4, 6, 4, 1),
+(218, 4, 7, 1, 1),
+(219, 4, 7, 2, 1),
+(220, 4, 7, 3, 1),
+(221, 4, 7, 4, 1),
+(222, 4, 8, 1, 1),
+(223, 4, 8, 2, 1),
+(224, 4, 8, 3, 1),
+(225, 4, 8, 4, 1),
+(226, 4, 9, 1, 2),
+(227, 4, 9, 2, 5),
+(228, 4, 9, 3, 2),
+(229, 4, 9, 4, 1),
+(230, 4, 10, 1, 0),
+(231, 4, 10, 2, 2),
+(232, 4, 10, 3, 1),
+(233, 4, 10, 4, 1),
+(234, 4, 11, 1, 1),
+(235, 4, 11, 2, 2),
+(236, 4, 11, 3, 2),
+(237, 4, 11, 4, 5),
+(238, 4, 12, 1, 2),
+(239, 4, 12, 2, 2),
+(240, 4, 12, 3, 5),
+(241, 4, 12, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -189,7 +390,6 @@ INSERT INTO `semanacab` (`id`, `dia`, `sucursal_id`) VALUES
 --
 
 CREATE TABLE `semanadet` (
-  `id` int(11) NOT NULL,
   `semanaCab_id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
   `tamano_id` int(11) NOT NULL,
@@ -200,95 +400,522 @@ CREATE TABLE `semanadet` (
 -- Volcado de datos para la tabla `semanadet`
 --
 
-INSERT INTO `semanadet` (`id`, `semanaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
-(1, 1, 1, 1, 4),
-(2, 1, 1, 2, 8),
-(3, 1, 1, 3, 6),
-(4, 1, 1, 4, 4),
-(5, 1, 2, 1, 6),
-(6, 1, 2, 2, 5),
-(7, 1, 2, 3, 4),
-(8, 1, 2, 4, 5),
-(9, 1, 3, 1, 3),
-(10, 1, 3, 2, 4),
-(11, 1, 3, 3, 5),
-(12, 1, 3, 4, 5),
-(13, 1, 4, 1, 5),
-(14, 1, 4, 2, 3),
-(15, 1, 4, 3, 6),
-(16, 1, 4, 4, 4),
-(17, 1, 5, 1, 4),
-(18, 1, 5, 2, 4),
-(19, 1, 5, 3, 4),
-(20, 1, 5, 4, 4),
-(21, 1, 6, 1, 4),
-(22, 1, 6, 2, 4),
-(23, 1, 6, 3, 4),
-(24, 1, 6, 4, 4),
-(25, 1, 7, 1, 4),
-(26, 1, 7, 2, 4),
-(27, 1, 7, 3, 4),
-(28, 1, 7, 4, 4),
-(29, 1, 8, 1, 4),
-(30, 1, 8, 2, 4),
-(31, 1, 8, 3, 4),
-(32, 1, 8, 4, 4),
-(33, 1, 9, 1, 4),
-(34, 1, 9, 2, 4),
-(35, 1, 9, 3, 4),
-(36, 1, 9, 4, 4),
-(37, 1, 10, 1, 4),
-(38, 1, 10, 2, 4),
-(39, 1, 10, 3, 4),
-(40, 1, 10, 4, 4),
-(41, 1, 11, 1, 4),
-(42, 1, 11, 2, 4),
-(43, 1, 11, 3, 4),
-(44, 1, 11, 4, 4),
-(45, 7, 1, 1, 4),
-(46, 7, 1, 2, 8),
-(47, 7, 1, 3, 6),
-(48, 7, 1, 4, 4),
-(49, 7, 2, 1, 6),
-(50, 7, 2, 2, 5),
-(51, 7, 2, 3, 4),
-(52, 7, 2, 4, 5),
-(53, 7, 3, 1, 3),
-(54, 7, 3, 2, 4),
-(55, 7, 3, 3, 5),
-(56, 7, 3, 4, 5),
-(57, 7, 4, 1, 5),
-(58, 7, 4, 2, 3),
-(59, 7, 4, 3, 6),
-(60, 7, 4, 4, 4),
-(61, 7, 5, 1, 4),
-(62, 7, 5, 2, 4),
-(63, 7, 5, 3, 4),
-(64, 7, 5, 4, 4),
-(65, 7, 6, 1, 4),
-(66, 7, 6, 2, 4),
-(67, 7, 6, 3, 4),
-(68, 7, 6, 4, 4),
-(69, 7, 7, 1, 4),
-(70, 7, 7, 2, 4),
-(71, 7, 7, 3, 4),
-(72, 7, 7, 4, 4),
-(73, 7, 8, 1, 4),
-(74, 7, 8, 2, 4),
-(75, 7, 8, 3, 4),
-(76, 7, 8, 4, 4),
-(77, 7, 9, 1, 4),
-(78, 7, 9, 2, 4),
-(79, 7, 9, 3, 4),
-(80, 7, 9, 4, 4),
-(81, 7, 10, 1, 4),
-(82, 7, 10, 2, 4),
-(83, 7, 10, 3, 4),
-(84, 7, 10, 4, 4),
-(85, 7, 11, 1, 4),
-(86, 7, 11, 2, 4),
-(87, 7, 11, 3, 4),
-(88, 7, 11, 4, 4);
+INSERT INTO `semanadet` (`semanaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
+(7, 1, 1, 4),
+(7, 1, 2, 8),
+(7, 1, 3, 6),
+(7, 1, 4, 4),
+(7, 2, 1, 6),
+(7, 2, 2, 5),
+(7, 2, 3, 4),
+(7, 2, 4, 5),
+(7, 3, 1, 3),
+(7, 3, 2, 4),
+(7, 3, 3, 5),
+(7, 3, 4, 5),
+(7, 4, 1, 5),
+(7, 4, 2, 3),
+(7, 4, 3, 6),
+(7, 4, 4, 4),
+(7, 5, 1, 4),
+(7, 5, 2, 4),
+(7, 5, 3, 4),
+(7, 5, 4, 4),
+(7, 6, 1, 4),
+(7, 6, 2, 4),
+(7, 6, 3, 4),
+(7, 6, 4, 4),
+(7, 7, 1, 4),
+(7, 7, 2, 4),
+(7, 7, 3, 4),
+(7, 7, 4, 4),
+(7, 8, 1, 4),
+(7, 8, 2, 4),
+(7, 8, 3, 4),
+(7, 8, 4, 4),
+(7, 9, 1, 4),
+(7, 9, 2, 4),
+(7, 9, 3, 4),
+(7, 9, 4, 4),
+(7, 10, 1, 4),
+(7, 10, 2, 4),
+(7, 10, 3, 4),
+(7, 10, 4, 4),
+(7, 11, 1, 4),
+(7, 11, 2, 4),
+(7, 11, 3, 4),
+(7, 11, 4, 4),
+(2, 1, 1, 0),
+(2, 1, 2, 0),
+(2, 1, 3, 0),
+(2, 1, 4, 0),
+(2, 2, 1, 0),
+(2, 2, 2, 0),
+(2, 2, 3, 0),
+(2, 2, 4, 0),
+(2, 3, 1, 0),
+(2, 3, 2, 0),
+(2, 3, 3, 0),
+(2, 3, 4, 0),
+(2, 4, 1, 0),
+(2, 4, 2, 0),
+(2, 4, 3, 0),
+(2, 4, 4, 0),
+(2, 5, 1, 0),
+(2, 5, 2, 1),
+(2, 5, 3, 2),
+(2, 5, 4, 0),
+(2, 6, 1, 0),
+(2, 6, 2, 0),
+(2, 6, 3, 0),
+(2, 6, 4, 0),
+(2, 7, 1, 0),
+(2, 7, 2, 0),
+(2, 7, 3, 0),
+(2, 7, 4, 0),
+(2, 8, 1, 0),
+(2, 8, 2, 0),
+(2, 8, 3, 0),
+(2, 8, 4, 0),
+(2, 9, 1, 0),
+(2, 9, 2, 0),
+(2, 9, 3, 0),
+(2, 9, 4, 0),
+(2, 10, 1, 0),
+(2, 10, 2, 0),
+(2, 10, 3, 0),
+(2, 10, 4, 0),
+(2, 11, 1, 0),
+(2, 11, 2, 0),
+(2, 11, 3, 0),
+(2, 11, 4, 0),
+(2, 12, 1, 0),
+(2, 12, 2, 0),
+(2, 12, 3, 0),
+(2, 12, 4, 0),
+(3, 1, 1, 2),
+(3, 1, 2, 0),
+(3, 1, 3, 0),
+(3, 1, 4, 0),
+(3, 2, 1, 0),
+(3, 2, 2, 0),
+(3, 2, 3, 0),
+(3, 2, 4, 0),
+(3, 3, 1, 0),
+(3, 3, 2, 0),
+(3, 3, 3, 0),
+(3, 3, 4, 0),
+(3, 4, 1, 0),
+(3, 4, 2, 0),
+(3, 4, 3, 0),
+(3, 4, 4, 0),
+(3, 5, 1, 0),
+(3, 5, 2, 0),
+(3, 5, 3, 0),
+(3, 5, 4, 0),
+(3, 6, 1, 0),
+(3, 6, 2, 0),
+(3, 6, 3, 0),
+(3, 6, 4, 0),
+(3, 7, 1, 0),
+(3, 7, 2, 0),
+(3, 7, 3, 0),
+(3, 7, 4, 0),
+(3, 8, 1, 0),
+(3, 8, 2, 0),
+(3, 8, 3, 0),
+(3, 8, 4, 0),
+(3, 9, 1, 0),
+(3, 9, 2, 0),
+(3, 9, 3, 0),
+(3, 9, 4, 0),
+(3, 10, 1, 0),
+(3, 10, 2, 0),
+(3, 10, 3, 0),
+(3, 10, 4, 0),
+(3, 11, 1, 0),
+(3, 11, 2, 0),
+(3, 11, 3, 0),
+(3, 11, 4, 0),
+(3, 12, 1, 0),
+(3, 12, 2, 0),
+(3, 12, 3, 0),
+(3, 12, 4, 0),
+(1, 1, 1, 5),
+(1, 1, 2, 4),
+(1, 1, 3, 5),
+(1, 1, 4, 2),
+(1, 2, 1, 3),
+(1, 2, 2, 5),
+(1, 2, 3, 2),
+(1, 2, 4, 4),
+(1, 3, 1, 8),
+(1, 3, 2, 5),
+(1, 3, 3, 2),
+(1, 3, 4, 1),
+(1, 4, 1, 3),
+(1, 4, 2, 5),
+(1, 4, 3, 9),
+(1, 4, 4, 1),
+(1, 5, 1, 2),
+(1, 5, 2, 5),
+(1, 5, 3, 8),
+(1, 5, 4, 4),
+(1, 6, 1, 6),
+(1, 6, 2, 5),
+(1, 6, 3, 2),
+(1, 6, 4, 1),
+(1, 7, 1, 4),
+(1, 7, 2, 6),
+(1, 7, 3, 2),
+(1, 7, 4, 5),
+(1, 8, 1, 3),
+(1, 8, 2, 5),
+(1, 8, 3, 6),
+(1, 8, 4, 2),
+(1, 9, 1, 1),
+(1, 9, 2, 0),
+(1, 9, 3, 3),
+(1, 9, 4, 5),
+(1, 10, 1, 2),
+(1, 10, 2, 5),
+(1, 10, 3, 6),
+(1, 10, 4, 2),
+(1, 11, 1, 0),
+(1, 11, 2, 6),
+(1, 11, 3, 3),
+(1, 11, 4, 0),
+(1, 12, 1, 6),
+(1, 12, 2, 6),
+(1, 12, 3, 0),
+(1, 12, 4, 6),
+(5, 1, 1, 5),
+(5, 1, 2, 4),
+(5, 1, 3, 6),
+(5, 1, 4, 2),
+(5, 2, 1, 5),
+(5, 2, 2, 4),
+(5, 2, 3, 2),
+(5, 2, 4, 6),
+(5, 3, 1, 4),
+(5, 3, 2, 6),
+(5, 3, 3, 7),
+(5, 3, 4, 2),
+(5, 4, 1, 1),
+(5, 4, 2, 2),
+(5, 4, 3, 5),
+(5, 4, 4, 4),
+(5, 5, 1, 6),
+(5, 5, 2, 5),
+(5, 5, 3, 3),
+(5, 5, 4, 4),
+(5, 6, 1, 5),
+(5, 6, 2, 6),
+(5, 6, 3, 2),
+(5, 6, 4, 5),
+(5, 7, 1, 5),
+(5, 7, 2, 4),
+(5, 7, 3, 6),
+(5, 7, 4, 4),
+(5, 8, 1, 5),
+(5, 8, 2, 4),
+(5, 8, 3, 6),
+(5, 8, 4, 5),
+(5, 9, 1, 6),
+(5, 9, 2, 5),
+(5, 9, 3, 4),
+(5, 9, 4, 6),
+(5, 10, 1, 4),
+(5, 10, 2, 6),
+(5, 10, 3, 4),
+(5, 10, 4, 5),
+(5, 11, 1, 5),
+(5, 11, 2, 4),
+(5, 11, 3, 5),
+(5, 11, 4, 6),
+(5, 12, 1, 6),
+(5, 12, 2, 4),
+(5, 12, 3, 5),
+(5, 12, 4, 4),
+(9, 1, 1, 2),
+(9, 1, 2, 5),
+(9, 1, 3, 2),
+(9, 1, 4, 5),
+(9, 2, 1, 2),
+(9, 2, 2, 5),
+(9, 2, 3, 2),
+(9, 2, 4, 5),
+(9, 3, 1, 2),
+(9, 3, 2, 5),
+(9, 3, 3, 2),
+(9, 3, 4, 3),
+(9, 4, 1, 2),
+(9, 4, 2, 3),
+(9, 4, 3, 2),
+(9, 4, 4, 1),
+(9, 5, 1, 2),
+(9, 5, 2, 5),
+(9, 5, 3, 2),
+(9, 5, 4, 3),
+(9, 6, 1, 2),
+(9, 6, 2, 2),
+(9, 6, 3, 2),
+(9, 6, 4, 1),
+(9, 7, 1, 2),
+(9, 7, 2, 2),
+(9, 7, 3, 2),
+(9, 7, 4, 2),
+(9, 8, 1, 1),
+(9, 8, 2, 2),
+(9, 8, 3, 2),
+(9, 8, 4, 1),
+(9, 9, 1, 2),
+(9, 9, 2, 2),
+(9, 9, 3, 2),
+(9, 9, 4, 2),
+(9, 10, 1, 2),
+(9, 10, 2, 2),
+(9, 10, 3, 2),
+(9, 10, 4, 2),
+(9, 11, 1, 2),
+(9, 11, 2, 2),
+(9, 11, 3, 2),
+(9, 11, 4, 2),
+(9, 12, 1, 2),
+(9, 12, 2, 2),
+(9, 12, 3, 2),
+(9, 12, 4, 2),
+(13, 1, 1, 2),
+(13, 1, 2, 2),
+(13, 1, 3, 2),
+(13, 1, 4, 2),
+(13, 2, 1, 2),
+(13, 2, 2, 2),
+(13, 2, 3, 2),
+(13, 2, 4, 2),
+(13, 3, 1, 2),
+(13, 3, 2, 2),
+(13, 3, 3, 2),
+(13, 3, 4, 2),
+(13, 4, 1, 2),
+(13, 4, 2, 2),
+(13, 4, 3, 2),
+(13, 4, 4, 2),
+(13, 5, 1, 2),
+(13, 5, 2, 2),
+(13, 5, 3, 2),
+(13, 5, 4, 2),
+(13, 6, 1, 2),
+(13, 6, 2, 2),
+(13, 6, 3, 2),
+(13, 6, 4, 2),
+(13, 7, 1, 2),
+(13, 7, 2, 2),
+(13, 7, 3, 2),
+(13, 7, 4, 2),
+(13, 8, 1, 5),
+(13, 8, 2, 5),
+(13, 8, 3, 5),
+(13, 8, 4, 5),
+(13, 9, 1, 5),
+(13, 9, 2, 5),
+(13, 9, 3, 5),
+(13, 9, 4, 5),
+(13, 10, 1, 5),
+(13, 10, 2, 5),
+(13, 10, 3, 5),
+(13, 10, 4, 5),
+(13, 11, 1, 5),
+(13, 11, 2, 5),
+(13, 11, 3, 5),
+(13, 11, 4, 5),
+(13, 12, 1, 5),
+(13, 12, 2, 5),
+(13, 12, 3, 5),
+(13, 12, 4, 5),
+(17, 1, 1, 1),
+(17, 1, 2, 2),
+(17, 1, 3, 1),
+(17, 1, 4, 2),
+(17, 2, 1, 1),
+(17, 2, 2, 1),
+(17, 2, 3, 1),
+(17, 2, 4, 1),
+(17, 3, 1, 5),
+(17, 3, 2, 5),
+(17, 3, 3, 5),
+(17, 3, 4, 5),
+(17, 4, 1, 4),
+(17, 4, 2, 4),
+(17, 4, 3, 4),
+(17, 4, 4, 4),
+(17, 5, 1, 2),
+(17, 5, 2, 2),
+(17, 5, 3, 2),
+(17, 5, 4, 2),
+(17, 6, 1, 4),
+(17, 6, 2, 4),
+(17, 6, 3, 5),
+(17, 6, 4, 2),
+(17, 7, 1, 2),
+(17, 7, 2, 2),
+(17, 7, 3, 2),
+(17, 7, 4, 2),
+(17, 8, 1, 2),
+(17, 8, 2, 2),
+(17, 8, 3, 2),
+(17, 8, 4, 2),
+(17, 9, 1, 1),
+(17, 9, 2, 1),
+(17, 9, 3, 1),
+(17, 9, 4, 1),
+(17, 10, 1, 1),
+(17, 10, 2, 1),
+(17, 10, 3, 1),
+(17, 10, 4, 1),
+(17, 11, 1, 1),
+(17, 11, 2, 1),
+(17, 11, 3, 1),
+(17, 11, 4, 1),
+(17, 12, 1, 1),
+(17, 12, 2, 1),
+(17, 12, 3, 1),
+(17, 12, 4, 1),
+(21, 1, 1, 2),
+(21, 1, 2, 2),
+(21, 1, 3, 2),
+(21, 1, 4, 2),
+(21, 2, 1, 2),
+(21, 2, 2, 2),
+(21, 2, 3, 2),
+(21, 2, 4, 2),
+(21, 3, 1, 2),
+(21, 3, 2, 2),
+(21, 3, 3, 2),
+(21, 3, 4, 2),
+(21, 4, 1, 2),
+(21, 4, 2, 2),
+(21, 4, 3, 2),
+(21, 4, 4, 2),
+(21, 5, 1, 2),
+(21, 5, 2, 2),
+(21, 5, 3, 2),
+(21, 5, 4, 2),
+(21, 6, 1, 2),
+(21, 6, 2, 2),
+(21, 6, 3, 2),
+(21, 6, 4, 2),
+(21, 7, 1, 2),
+(21, 7, 2, 2),
+(21, 7, 3, 2),
+(21, 7, 4, 2),
+(21, 8, 1, 2),
+(21, 8, 2, 2),
+(21, 8, 3, 2),
+(21, 8, 4, 2),
+(21, 9, 1, 2),
+(21, 9, 2, 2),
+(21, 9, 3, 2),
+(21, 9, 4, 2),
+(21, 10, 1, 2),
+(21, 10, 2, 2),
+(21, 10, 3, 2),
+(21, 10, 4, 2),
+(21, 11, 1, 2),
+(21, 11, 2, 2),
+(21, 11, 3, 2),
+(21, 11, 4, 2),
+(21, 12, 1, 2),
+(21, 12, 2, 2),
+(21, 12, 3, 2),
+(21, 12, 4, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sobrantecab`
+--
+
+CREATE TABLE `sobrantecab` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `sucursal_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sobrantecab`
+--
+
+INSERT INTO `sobrantecab` (`id`, `fecha`, `sucursal_id`) VALUES
+(1, '2017-07-17', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sobrantedet`
+--
+
+CREATE TABLE `sobrantedet` (
+  `id` int(11) NOT NULL,
+  `sobranteCab_id` int(11) NOT NULL,
+  `torta_id` int(11) NOT NULL,
+  `tamano_id` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sobrantedet`
+--
+
+INSERT INTO `sobrantedet` (`id`, `sobranteCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
+(50, 1, 1, 1, 3),
+(51, 1, 1, 2, 1),
+(52, 1, 1, 3, 1),
+(53, 1, 1, 4, 1),
+(54, 1, 2, 1, 1),
+(55, 1, 2, 2, 1),
+(56, 1, 2, 3, 1),
+(57, 1, 2, 4, 1),
+(58, 1, 3, 1, 1),
+(59, 1, 3, 2, 1),
+(60, 1, 3, 3, 1),
+(61, 1, 3, 4, 1),
+(62, 1, 4, 1, 1),
+(63, 1, 4, 2, 1),
+(64, 1, 4, 3, 1),
+(65, 1, 4, 4, 1),
+(66, 1, 5, 1, 1),
+(67, 1, 5, 2, 1),
+(68, 1, 5, 3, 1),
+(69, 1, 5, 4, 1),
+(70, 1, 6, 1, 1),
+(71, 1, 6, 2, 1),
+(72, 1, 6, 3, 1),
+(73, 1, 6, 4, 1),
+(74, 1, 7, 1, 1),
+(75, 1, 7, 2, 1),
+(76, 1, 7, 3, 1),
+(77, 1, 7, 4, 1),
+(78, 1, 8, 1, 1),
+(79, 1, 8, 2, 1),
+(80, 1, 8, 3, 1),
+(81, 1, 8, 4, 1),
+(82, 1, 9, 1, 2),
+(83, 1, 9, 2, 5),
+(84, 1, 9, 3, 2),
+(85, 1, 9, 4, 1),
+(86, 1, 10, 1, 0),
+(87, 1, 10, 2, 2),
+(88, 1, 10, 3, 1),
+(89, 1, 10, 4, 1),
+(90, 1, 11, 1, 1),
+(91, 1, 11, 2, 2),
+(92, 1, 11, 3, 2),
+(93, 1, 11, 4, 5),
+(94, 1, 12, 1, 2),
+(95, 1, 12, 2, 2),
+(96, 1, 12, 3, 5),
+(97, 1, 12, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -389,7 +1016,6 @@ CREATE TABLE `tortaprecio` (
 
 INSERT INTO `tortaprecio` (`id`, `torta_id`, `tamano_id`, `precio_id`) VALUES
 (1, 1, 1, 1),
-(2, 1, 2, 2),
 (3, 1, 3, 3),
 (4, 1, 4, 4),
 (5, 1, 5, 5),
@@ -499,10 +1125,61 @@ ALTER TABLE `pedido`
   ADD KEY `sucursalRetiro` (`sucursalRetiro`);
 
 --
+-- Indices de la tabla `pedidoespecial`
+--
+ALTER TABLE `pedidoespecial`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `torta_id` (`torta_id`),
+  ADD KEY `tamano_id` (`tamano_id`),
+  ADD KEY `sucursal_id` (`sucursal_id`);
+
+--
 -- Indices de la tabla `precio`
 --
 ALTER TABLE `precio`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `programaciondiariacab`
+--
+ALTER TABLE `programaciondiariacab`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sucursal_id` (`sucursal_id`);
+
+--
+-- Indices de la tabla `programaciondiariaesp`
+--
+ALTER TABLE `programaciondiariaesp`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
+  ADD KEY `pedidoEspecial_id` (`pedidoEspecial_id`);
+
+--
+-- Indices de la tabla `programaciondiarianor`
+--
+ALTER TABLE `programaciondiarianor`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
+  ADD KEY `torta_id` (`torta_id`),
+  ADD KEY `tamano_id` (`tamano_id`);
+
+--
+-- Indices de la tabla `programaciondiariaped`
+--
+ALTER TABLE `programaciondiariaped`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
+  ADD KEY `torta_id` (`torta_id`),
+  ADD KEY `tamano_id` (`tamano_id`);
+
+--
+-- Indices de la tabla `programaciondiariasob`
+--
+ALTER TABLE `programaciondiariasob`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
+  ADD KEY `torta_id` (`torta_id`),
+  ADD KEY `tamano_id` (`tamano_id`);
 
 --
 -- Indices de la tabla `sabor`
@@ -522,8 +1199,23 @@ ALTER TABLE `semanacab`
 -- Indices de la tabla `semanadet`
 --
 ALTER TABLE `semanadet`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `historicoCab_id` (`semanaCab_id`,`torta_id`,`tamano_id`),
+  ADD KEY `torta_id` (`torta_id`),
+  ADD KEY `tamano_id` (`tamano_id`);
+
+--
+-- Indices de la tabla `sobrantecab`
+--
+ALTER TABLE `sobrantecab`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sucursal_id` (`sucursal_id`);
+
+--
+-- Indices de la tabla `sobrantedet`
+--
+ALTER TABLE `sobrantedet`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sobranteCab_id` (`sobranteCab_id`),
   ADD KEY `torta_id` (`torta_id`),
   ADD KEY `tamano_id` (`tamano_id`);
 
@@ -576,12 +1268,42 @@ ALTER TABLE `masatipo`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `pedidoespecial`
+--
+ALTER TABLE `pedidoespecial`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `precio`
 --
 ALTER TABLE `precio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `programaciondiariacab`
+--
+ALTER TABLE `programaciondiariacab`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `programaciondiariaesp`
+--
+ALTER TABLE `programaciondiariaesp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `programaciondiarianor`
+--
+ALTER TABLE `programaciondiarianor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT de la tabla `programaciondiariaped`
+--
+ALTER TABLE `programaciondiariaped`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `programaciondiariasob`
+--
+ALTER TABLE `programaciondiariasob`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 --
 -- AUTO_INCREMENT de la tabla `sabor`
 --
@@ -593,10 +1315,15 @@ ALTER TABLE `sabor`
 ALTER TABLE `semanacab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
--- AUTO_INCREMENT de la tabla `semanadet`
+-- AUTO_INCREMENT de la tabla `sobrantecab`
 --
-ALTER TABLE `semanadet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+ALTER TABLE `sobrantecab`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `sobrantedet`
+--
+ALTER TABLE `sobrantedet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT de la tabla `sucursal`
 --
@@ -630,6 +1357,51 @@ ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_4` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`);
 
 --
+-- Filtros para la tabla `pedidoespecial`
+--
+ALTER TABLE `pedidoespecial`
+  ADD CONSTRAINT `pedidoespecial_ibfk_1` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `pedidoespecial_ibfk_2` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
+  ADD CONSTRAINT `pedidoespecial_ibfk_3` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+
+--
+-- Filtros para la tabla `programaciondiariacab`
+--
+ALTER TABLE `programaciondiariacab`
+  ADD CONSTRAINT `programaciondiariacab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+
+--
+-- Filtros para la tabla `programaciondiariaesp`
+--
+ALTER TABLE `programaciondiariaesp`
+  ADD CONSTRAINT `programaciondiariaesp_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
+  ADD CONSTRAINT `programaciondiariaesp_ibfk_2` FOREIGN KEY (`pedidoEspecial_id`) REFERENCES `pedidoespecial` (`id`);
+
+--
+-- Filtros para la tabla `programaciondiarianor`
+--
+ALTER TABLE `programaciondiarianor`
+  ADD CONSTRAINT `programaciondiarianor_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
+  ADD CONSTRAINT `programaciondiarianor_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `programaciondiarianor_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+
+--
+-- Filtros para la tabla `programaciondiariaped`
+--
+ALTER TABLE `programaciondiariaped`
+  ADD CONSTRAINT `programaciondiariaped_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
+  ADD CONSTRAINT `programaciondiariaped_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `programaciondiariaped_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+
+--
+-- Filtros para la tabla `programaciondiariasob`
+--
+ALTER TABLE `programaciondiariasob`
+  ADD CONSTRAINT `programaciondiariasob_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
+  ADD CONSTRAINT `programaciondiariasob_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `programaciondiariasob_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+
+--
 -- Filtros para la tabla `semanacab`
 --
 ALTER TABLE `semanacab`
@@ -642,6 +1414,20 @@ ALTER TABLE `semanadet`
   ADD CONSTRAINT `semanadet_ibfk_1` FOREIGN KEY (`semanaCab_id`) REFERENCES `semanacab` (`id`),
   ADD CONSTRAINT `semanadet_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
   ADD CONSTRAINT `semanadet_ibfk_4` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`);
+
+--
+-- Filtros para la tabla `sobrantecab`
+--
+ALTER TABLE `sobrantecab`
+  ADD CONSTRAINT `sobrantecab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+
+--
+-- Filtros para la tabla `sobrantedet`
+--
+ALTER TABLE `sobrantedet`
+  ADD CONSTRAINT `sobrantedet_ibfk_1` FOREIGN KEY (`sobranteCab_id`) REFERENCES `sobrantecab` (`id`),
+  ADD CONSTRAINT `sobrantedet_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `sobrantedet_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
 
 --
 -- Filtros para la tabla `torta`
