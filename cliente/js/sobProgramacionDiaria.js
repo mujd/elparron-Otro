@@ -106,12 +106,7 @@ function programacionDiariaTotalizaSobrante() {
 
 }
 
-function sobranteProgramacionDiariaTortaListar() {
-	ajaxGet(rutaURL + "/torta", sobranteProgramacionDiariaDesplegarTortas);
-
-}
-
-function programacionDiariaSerlializarSobrante() {
+function programacionDiariaSobSerlializar() {
 
 	var sobranteFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
 	var sobranteSucursal_id = $("#cmbProgramacionDiariaSucursal").val();
@@ -124,7 +119,7 @@ function programacionDiariaSerlializarSobrante() {
 
 	$("#tabSobranteProgramacionDiaria").find("input[type='text']").each(function () {
 		item = {
-			"ttorta_id": $(this).attr("id").split("_")[1],
+			"torta_id": $(this).attr("id").split("_")[1],
 			"tamano_id": $(this).attr("id").split("_")[2],
 			"cantidad": $(this).val()
 		}
@@ -133,6 +128,21 @@ function programacionDiariaSerlializarSobrante() {
 	return data;
 
 }
+
+  function programacionDiariaSobRegistrar() {
+	var oData = programacionDiariaSobSerlializar();
+	alert(JSON.stringify(oData));
+	var mensajeSob = 'Datos Registrados ';
+	ajaxPost(rutaURL + "/programacionDiaria", oData);
+	$('#alertModalReg').find('.modal-body p').text(mensaje);
+	$('#alertModalReg').modal('show')
+} 
+ 
+function sobranteProgramacionDiariaTortaListar() {
+	ajaxGet(rutaURL + "/torta", sobranteProgramacionDiariaDesplegarTortas);
+
+}
+
 
 /* FIN Programacion diaria sobrantes */
 
@@ -149,6 +159,8 @@ function sobProDiariaCarga() {
 		}).blur(function () {
 			programacionDiariaBuscarSobrante();
 		});
+		$("#btnRegistrarProgramacionDiaria").click(function () {
+			programacionDiariaSobRegistrar();
+		});
 	});
 }
-

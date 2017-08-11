@@ -23,7 +23,7 @@ function imprimirProgramacionNormal(oData) {
     if ($("#cmbProgramacionDiariaSucursal").val() == 4) {
         doc.setTextColor(26, 239, 15);
     }
-    
+
     var pageWidth = 216;
     var pageHeight = 279;
 
@@ -80,7 +80,7 @@ function imprimirProgramacionNormal(oData) {
                 if ($("#cmbProgramacionDiariaSucursal").val() == 4) {
                     doc.setTextColor(26, 239, 15);
                 }
-                
+
 
                 startY = pageMargin;
             } else {
@@ -96,30 +96,34 @@ function imprimirProgramacionNormal(oData) {
         }
 
     }
-    function textWriter(item, xAxis, yAxis) {
-        doc.setFontSize(15);
+
+    function textWriter(item, xAxis, yAxis, miJSON) {
+        var texto;
+        texto =
+            doc.setFontSize(15);
         doc.text("VENTA", xAxis + 5, yAxis + 10);
         doc.setFontSize(12);
         doc.text("N°" + item.id_diaria, xAxis + 85, yAxis + 10);
         doc.text(item.personas + " Personas", xAxis + 75, yAxis + 15);
         doc.text(item.masaTipo_nombre + " " + item.masaSabor_nombre + " " + item.sabor_nombre + " " + "#" + item.num, xAxis + 23, yAxis + 30);
         doc.text("Fecha: " + item.fecha, xAxis + 64, yAxis + 55);
-        doc.addImage(creaQR("id: " + item.id_diaria + " " + item.masaTipo_nombre + " " + item.masaSabor_nombre + " " + item.sabor_nombre + " " + "#" + item.num + " Fecha: " + item.fecha), "JPEG", xAxis + 10, yAxis + 35, 20, 20);
-        // doc.addImage(creaQR("{id: 4, idDet: 4, nombre: 'Cuarto', fecha: '23/08/2017'}"), "JPEG", xAxis, yAxis, 15, 15);
+        // doc.addImage(creaQR("id: " + item.id_diaria + " " + item.masaTipo_nombre + " " + item.masaSabor_nombre + " " + item.sabor_nombre + " " + "#" + item.num + " Fecha: " + item.fecha), "JPEG", xAxis + 10, yAxis + 35, 20, 20);
+        doc.addImage(creaQR(JSON.stringify(item, ['fecha', 'num'])), "JPEG", xAxis + 10, yAxis + 35, 20, 20);
+        
     }
 
-
+    function creaQR(texto) {
+        jQuery('#output').qrcode(texto);
+        var canvas = document.querySelector("#output canvas");
+        var imageURL = canvas.toDataURL();
+        return imageURL;
+    }
+    
     for (var i = 0; i < data[0].detalle.length; i++) {
         createCard(data[0].detalle[i]);
     }
 
     doc.save('programacionNormal.pdf');
-    $("#output").each(function creaQR(texto) {
-            jQuery('#output').qrcode(texto);
-            var canvas = document.querySelector("#output canvas");
-            var imageURL = canvas.toDataURL();
-            return imageURL;
-        });
 }
 
 function pdfBuscarProgramacionNormal() {

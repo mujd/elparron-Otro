@@ -117,16 +117,15 @@ function programacionDiariaSerlializarPedido() {
 	var pedidoSucursal_id = $("#cmbProgramacionDiariaSucursal").val();
 
 	var data = {
-		"pedido_fecha": pedidoFecha,
-		"pedidoSucursal_id": pedidoSucursal_id,
+		"fecha": pedidoFecha,
+		"sucursal_id": pedidoSucursal_id,
 		"detalle": []
 	}
 
 	$("#tabPedidoProgramacionDiaria").find("input[type='text']").each(function () {
 		item = {
-			"pedidoTorta_id": $(this).attr("id").split("_")[1],
-			"pedidoTamano_id": $(this).attr("id").split("_")[2],
-			"pedidoCantidad": $(this).val()
+			"torta_id": $(this).attr("id").split("_")[1],
+			"tamano_id": $(this).attr("id").split("_")[2]
 		}
 		data.detalle.push(item);
 	});

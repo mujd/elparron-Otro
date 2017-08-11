@@ -162,7 +162,7 @@ function programacionDiariaNuevo(tipo) {
 
 }
 
-function programacionDiariaSerlializar() {
+  function programacionDiariaSerlializar() {
 
 	var fecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
 	var sucursal_id = $("#cmbProgramacionDiariaSucursal").val();
@@ -176,23 +176,25 @@ function programacionDiariaSerlializar() {
 	$("#tabProgramacionDiaria").find("input[type='text']").each(function () {
 		item = {
 			"torta_id": $(this).attr("id").split("_")[1],
-			"tamano_id": $(this).attr("id").split("_")[2],
-			"cantidad": $(this).val()
+			"tamano_id": $(this).attr("id").split("_")[2]
 		}
 		data.detalle.push(item);
 	});
 	return data;
 
-}
+} 
 
 function programacionDiariaRegistrar() {
-	var oData = programacionDiariaSerlializar();
+	var oDataSob = programacionDiariaSobSerlializar();
+	var oDataNor = programacionDiariaSerlializar();
+	var oDataPed = programacionDiariaSerlializarPedido();
+	var oDataEsp = programacionDiariaSerlializarPedidoEspecial();
 	// alert(JSON.stringify(oData));
 	var mensaje = 'Datos Registrados ';
-	ajaxPost(rutaURL + "/programacionDiaria", oData);
+	ajaxPost(rutaURL + "/programacionDiaria", oDataSob, oDataNor, oDataPed, oDataEsp);
 	$('#alertModalReg').find('.modal-body p').text(mensaje);
 	$('#alertModalReg').modal('show')
-}
+} 
 
 function programacionDiariaDesplegarSucursal(oData) {
 	$("#cmbProgramacionDiariaSucursal option").remove();
@@ -241,9 +243,9 @@ function programacionDiariaCargar() {
 		$("#btnNuevoProgramacionDiaria").click(function () { 
 			programacionDiariaNuevo(); 
 		});
-		$("#btnRegistrarProgramacionDiaria").click(function () {
+		/* $("#btnRegistrarProgramacionDiaria").click(function () {
 			programacionDiariaValidaRegistro();
-		});
+		}); */
 	});
 }
 

@@ -132,7 +132,7 @@ function imprimirPedidoEspecial(oData) {
     }
 
     function textWriter(item, xAxis, yAxis) {
-        var texto;
+        // var texto;
         if (item.diet == 0) {
             item.diet = ' ';
         } else {
@@ -161,7 +161,7 @@ function imprimirPedidoEspecial(oData) {
         doc.text(item.mensaje.toUpperCase(), xAxis + 30, yAxis + 45);
         doc.text("Abono: " + item.abono, xAxis + 7, yAxis + 55);
         doc.text("Hora: " + item.fechaEntrega, xAxis + 72, yAxis + 55);
-        texto = doc.addImage(creaQR("id: " + item.id + " " + item.masaTipo_nombre + " " + item.masaSabor_nombre + " " + item.sabor_nombre + " " + "#" + item.num + " Fecha: " + item.fechaEntrega), "JPEG", xAxis + 7, yAxis + 30, 20, 20);
+        doc.addImage(creaQR("id: " + item.id + " " + item.masaTipo_nombre + " " + item.masaSabor_nombre + " " + item.sabor_nombre + " " + "#" + item.num + " Fecha: " + item.fechaEntrega), "JPEG", xAxis + 7, yAxis + 30, 20, 20);
     }
 
     function creaQR(texto) {
@@ -173,11 +173,7 @@ function imprimirPedidoEspecial(oData) {
 
     for (var i = 0; i < data.length; i++) {
         createCard(data[i]);
-    }
-
-    for (var i = 0; i < texto.length; i++) {
-        creaQR(texto[i]);
-    }
+    }   
 
     doc.save('pedidoEspecial.pdf');
 
