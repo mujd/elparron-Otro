@@ -25,19 +25,19 @@ USE `elparron`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `masasabor`
+-- Estructura de tabla para la tabla `masaSabor`
 --
 
-CREATE TABLE `masasabor` (
+CREATE TABLE `masaSabor` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- Volcado de datos para la tabla `masasabor`
+-- Volcado de datos para la tabla `masaSabor`
 --
 
-INSERT INTO `masasabor` (`id`, `nombre`) VALUES
+INSERT INTO `masaSabor` (`id`, `nombre`) VALUES
 (1, 'Blanco'),
 (2, 'Chocolate'),
 (3, 'Nuez');
@@ -45,19 +45,19 @@ INSERT INTO `masasabor` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `masatipo`
+-- Estructura de tabla para la tabla `masaTipo`
 --
 
-CREATE TABLE `masatipo` (
+CREATE TABLE `masaTipo` (
   `id` int(11) NOT NULL,
   `nombre` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- Volcado de datos para la tabla `masatipo`
+-- Volcado de datos para la tabla `masaTipo`
 --
 
-INSERT INTO `masatipo` (`id`, `nombre`) VALUES
+INSERT INTO `masaTipo` (`id`, `nombre`) VALUES
 (1, 'Bizcocho'),
 (2, 'Hoja'),
 (3, 'Merengue'),
@@ -97,10 +97,10 @@ INSERT INTO `pedido` (`id`, `torta_id`, `solicitante`, `telefono`, `tamano_id`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidoespecial`
+-- Estructura de tabla para la tabla `pedidoEspecial`
 --
 
-CREATE TABLE `pedidoespecial` (
+CREATE TABLE `pedidoEspecial` (
   `id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
   `solicitante` varchar(50) NOT NULL,
@@ -117,10 +117,10 @@ CREATE TABLE `pedidoespecial` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `pedidoespecial`
+-- Volcado de datos para la tabla `pedidoEspecial`
 --
 
-INSERT INTO `pedidoespecial` (`id`, `torta_id`, `solicitante`, `telefono`, `tamano_id`, `precio`, `fechaEntrega`, `sucursal_id`, `caracteristicas`, `mensaje`, `abono`, `forma`, `diet`) VALUES
+INSERT INTO `pedidoEspecial` (`id`, `torta_id`, `solicitante`, `telefono`, `tamano_id`, `precio`, `fechaEntrega`, `sucursal_id`, `caracteristicas`, `mensaje`, `abono`, `forma`, `diet`) VALUES
 (1, 1, 'Maximiliano Rojas', '2725885', 1, 10000, '2017-07-18 00:00:00', 1, 'Dibujo Batman', 'Feliz cumpleaños Maxi', 5000, 1, 0),
 (2, 2, 'Pablo Mendez', '65214562', 2, 20000, '2017-07-18 00:00:00', 1, 'Torta de cumpleaños', 'Feliz cumple pablo!!', 10000, 0, 1),
 (3, 6, 'Claudio Matus', '85215875', 3, 30000, '2017-07-18 00:00:00', 1, 'Dibujo Ironman', 'Feliz cumpleaños Claudio!', 15000, 1, 1),
@@ -157,20 +157,20 @@ INSERT INTO `precio` (`id`, `precio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `programaciondiariacab`
+-- Estructura de tabla para la tabla `programacionDiariaCab`
 --
 
-CREATE TABLE `programaciondiariacab` (
+CREATE TABLE `programacionDiariaCab` (
   `id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `sucursal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `programaciondiariacab`
+-- Volcado de datos para la tabla `programacionDiariaCab`
 --
 
-INSERT INTO `programaciondiariacab` (`id`, `fecha`, `sucursal_id`) VALUES
+INSERT INTO `programacionDiariaCab` (`id`, `fecha`, `sucursal_id`) VALUES
 (4, '2017-07-18', 1),
 (5, '2017-07-18', 2),
 (6, '2017-08-11', 1);
@@ -178,10 +178,10 @@ INSERT INTO `programaciondiariacab` (`id`, `fecha`, `sucursal_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `programaciondiariaesp`
+-- Estructura de tabla para la tabla `programacionDiariaEsp`
 --
 
-CREATE TABLE `programaciondiariaesp` (
+CREATE TABLE `programacionDiariaEsp` (
   `id` int(11) NOT NULL,
   `programacionDiariaCab_id` int(11) NOT NULL,
   `pedidoEspecial_id` int(11) NOT NULL,
@@ -196,10 +196,10 @@ CREATE TABLE `programaciondiariaesp` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `programaciondiarianor`
+-- Estructura de tabla para la tabla `programacionDiariaNor`
 --
 
-CREATE TABLE `programaciondiarianor` (
+CREATE TABLE `programacionDiariaNor` (
   `id` int(11) NOT NULL,
   `programacionDiariaCab_id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
@@ -213,10 +213,10 @@ CREATE TABLE `programaciondiarianor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `programaciondiarianor`
+-- Volcado de datos para la tabla `programacionDiariaNor`
 --
 
-INSERT INTO `programaciondiarianor` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `impreso`, `fabricado`, `camioneta`, `guiaDespacho`, `recepcionado`, `vendido`) VALUES
+INSERT INTO `programacionDiariaNor` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `impreso`, `fabricado`, `camioneta`, `guiaDespacho`, `recepcionado`, `vendido`) VALUES
 (17, 6, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (18, 6, 1, 2, NULL, NULL, NULL, NULL, NULL, NULL),
 (19, 6, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -225,10 +225,10 @@ INSERT INTO `programaciondiarianor` (`id`, `programacionDiariaCab_id`, `torta_id
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `programaciondiariaped`
+-- Estructura de tabla para la tabla `programacionDiariaPed`
 --
 
-CREATE TABLE `programaciondiariaped` (
+CREATE TABLE `programacionDiariaPed` (
   `id` int(11) NOT NULL,
   `programacionDiariaCab_id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
@@ -242,19 +242,19 @@ CREATE TABLE `programaciondiariaped` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `programaciondiariaped`
+-- Volcado de datos para la tabla `programacionDiariaPed`
 --
 
-INSERT INTO `programaciondiariaped` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `impreso`, `fabricado`, `camioneta`, `guiaDespacho`, `recepcionado`, `vendido`) VALUES
+INSERT INTO `programacionDiariaPed` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `impreso`, `fabricado`, `camioneta`, `guiaDespacho`, `recepcionado`, `vendido`) VALUES
 (9, 6, 4, 4, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `programaciondiariasob`
+-- Estructura de tabla para la tabla `programacionDiariaSob`
 --
 
-CREATE TABLE `programaciondiariasob` (
+CREATE TABLE `programacionDiariaSob` (
   `id` int(11) NOT NULL,
   `programacionDiariaCab_id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
@@ -263,10 +263,10 @@ CREATE TABLE `programaciondiariasob` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- Volcado de datos para la tabla `programaciondiariasob`
+-- Volcado de datos para la tabla `programacionDiariaSob`
 --
 
-INSERT INTO `programaciondiariasob` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
+INSERT INTO `programacionDiariaSob` (`id`, `programacionDiariaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
 (194, 4, 1, 1, 3),
 (195, 4, 1, 2, 1),
 (196, 4, 1, 3, 1),
@@ -344,20 +344,20 @@ INSERT INTO `sabor` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `semanacab`
+-- Estructura de tabla para la tabla `semanaCab`
 --
 
-CREATE TABLE `semanacab` (
+CREATE TABLE `semanaCab` (
   `id` int(11) NOT NULL,
   `dia` int(11) NOT NULL,
   `sucursal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- Volcado de datos para la tabla `semanacab`
+-- Volcado de datos para la tabla `semanaCab`
 --
 
-INSERT INTO `semanacab` (`id`, `dia`, `sucursal_id`) VALUES
+INSERT INTO `semanaCab` (`id`, `dia`, `sucursal_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 1, 3),
@@ -386,10 +386,10 @@ INSERT INTO `semanacab` (`id`, `dia`, `sucursal_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `semanadet`
+-- Estructura de tabla para la tabla `semanaDet`
 --
 
-CREATE TABLE `semanadet` (
+CREATE TABLE `semanaDet` (
   `semanaCab_id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
   `tamano_id` int(11) NOT NULL,
@@ -397,10 +397,10 @@ CREATE TABLE `semanadet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- Volcado de datos para la tabla `semanadet`
+-- Volcado de datos para la tabla `semanaDet`
 --
 
-INSERT INTO `semanadet` (`semanaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
+INSERT INTO `semanaDet` (`semanaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
 (7, 1, 1, 4),
 (7, 1, 2, 8),
 (7, 1, 3, 6),
@@ -833,29 +833,29 @@ INSERT INTO `semanadet` (`semanaCab_id`, `torta_id`, `tamano_id`, `cantidad`) VA
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sobrantecab`
+-- Estructura de tabla para la tabla `sobranteCab`
 --
 
-CREATE TABLE `sobrantecab` (
+CREATE TABLE `sobranteCab` (
   `id` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `sucursal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `sobrantecab`
+-- Volcado de datos para la tabla `sobranteCab`
 --
 
-INSERT INTO `sobrantecab` (`id`, `fecha`, `sucursal_id`) VALUES
+INSERT INTO `sobranteCab` (`id`, `fecha`, `sucursal_id`) VALUES
 (1, '2017-07-17', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sobrantedet`
+-- Estructura de tabla para la tabla `sobranteDet`
 --
 
-CREATE TABLE `sobrantedet` (
+CREATE TABLE `sobranteDet` (
   `id` int(11) NOT NULL,
   `sobranteCab_id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
@@ -864,10 +864,10 @@ CREATE TABLE `sobrantedet` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `sobrantedet`
+-- Volcado de datos para la tabla `sobranteDet`
 --
 
-INSERT INTO `sobrantedet` (`id`, `sobranteCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
+INSERT INTO `sobranteDet` (`id`, `sobranteCab_id`, `torta_id`, `tamano_id`, `cantidad`) VALUES
 (50, 1, 1, 1, 3),
 (51, 1, 1, 2, 1),
 (52, 1, 1, 3, 1),
@@ -1000,10 +1000,10 @@ INSERT INTO `torta` (`id`, `masaTipo_id`, `masaSabor_id`, `sabor_id`, `imagen`) 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tortaprecio`
+-- Estructura de tabla para la tabla `tortaPrecio`
 --
 
-CREATE TABLE `tortaprecio` (
+CREATE TABLE `tortaPrecio` (
   `id` int(11) NOT NULL,
   `torta_id` int(11) NOT NULL,
   `tamano_id` int(11) NOT NULL,
@@ -1011,10 +1011,10 @@ CREATE TABLE `tortaprecio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- Volcado de datos para la tabla `tortaprecio`
+-- Volcado de datos para la tabla `tortaPrecio`
 --
 
-INSERT INTO `tortaprecio` (`id`, `torta_id`, `tamano_id`, `precio_id`) VALUES
+INSERT INTO `tortaPrecio` (`id`, `torta_id`, `tamano_id`, `precio_id`) VALUES
 (1, 1, 1, 1),
 (3, 1, 3, 3),
 (4, 1, 4, 4),
@@ -1104,15 +1104,15 @@ INSERT INTO `tortaprecio` (`id`, `torta_id`, `tamano_id`, `precio_id`) VALUES
 --
 
 --
--- Indices de la tabla `masasabor`
+-- Indices de la tabla `masaSabor`
 --
-ALTER TABLE `masasabor`
+ALTER TABLE `masaSabor`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `masatipo`
+-- Indices de la tabla `masaTipo`
 --
-ALTER TABLE `masatipo`
+ALTER TABLE `masaTipo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1125,9 +1125,9 @@ ALTER TABLE `pedido`
   ADD KEY `sucursalRetiro` (`sucursalRetiro`);
 
 --
--- Indices de la tabla `pedidoespecial`
+-- Indices de la tabla `pedidoEspecial`
 --
-ALTER TABLE `pedidoespecial`
+ALTER TABLE `pedidoEspecial`
   ADD PRIMARY KEY (`id`),
   ADD KEY `torta_id` (`torta_id`),
   ADD KEY `tamano_id` (`tamano_id`),
@@ -1140,42 +1140,42 @@ ALTER TABLE `precio`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `programaciondiariacab`
+-- Indices de la tabla `programacionDiariaCab`
 --
-ALTER TABLE `programaciondiariacab`
+ALTER TABLE `programacionDiariaCab`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sucursal_id` (`sucursal_id`);
 
 --
--- Indices de la tabla `programaciondiariaesp`
+-- Indices de la tabla `programacionDiariaEsp`
 --
-ALTER TABLE `programaciondiariaesp`
+ALTER TABLE `programacionDiariaEsp`
   ADD PRIMARY KEY (`id`),
   ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
   ADD KEY `pedidoEspecial_id` (`pedidoEspecial_id`);
 
 --
--- Indices de la tabla `programaciondiarianor`
+-- Indices de la tabla `programacionDiariaNor`
 --
-ALTER TABLE `programaciondiarianor`
+ALTER TABLE `programacionDiariaNor`
   ADD PRIMARY KEY (`id`),
   ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
   ADD KEY `torta_id` (`torta_id`),
   ADD KEY `tamano_id` (`tamano_id`);
 
 --
--- Indices de la tabla `programaciondiariaped`
+-- Indices de la tabla `programacionDiariaPed`
 --
-ALTER TABLE `programaciondiariaped`
+ALTER TABLE `programacionDiariaPed`
   ADD PRIMARY KEY (`id`),
   ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
   ADD KEY `torta_id` (`torta_id`),
   ADD KEY `tamano_id` (`tamano_id`);
 
 --
--- Indices de la tabla `programaciondiariasob`
+-- Indices de la tabla `programacionDiariaSob`
 --
-ALTER TABLE `programaciondiariasob`
+ALTER TABLE `programacionDiariaSob`
   ADD PRIMARY KEY (`id`),
   ADD KEY `programacionDiariaCab_id` (`programacionDiariaCab_id`),
   ADD KEY `torta_id` (`torta_id`),
@@ -1188,32 +1188,32 @@ ALTER TABLE `sabor`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `semanacab`
+-- Indices de la tabla `semanaCab`
 --
-ALTER TABLE `semanacab`
+ALTER TABLE `semanaCab`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `IDX_DIA` (`dia`,`sucursal_id`),
   ADD KEY `sucursal_id` (`sucursal_id`);
 
 --
--- Indices de la tabla `semanadet`
+-- Indices de la tabla `semanaDet`
 --
-ALTER TABLE `semanadet`
+ALTER TABLE `semanaDet`
   ADD KEY `historicoCab_id` (`semanaCab_id`,`torta_id`,`tamano_id`),
   ADD KEY `torta_id` (`torta_id`),
   ADD KEY `tamano_id` (`tamano_id`);
 
 --
--- Indices de la tabla `sobrantecab`
+-- Indices de la tabla `sobranteCab`
 --
-ALTER TABLE `sobrantecab`
+ALTER TABLE `sobranteCab`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sucursal_id` (`sucursal_id`);
 
 --
--- Indices de la tabla `sobrantedet`
+-- Indices de la tabla `sobranteDet`
 --
-ALTER TABLE `sobrantedet`
+ALTER TABLE `sobranteDet`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sobranteCab_id` (`sobranteCab_id`),
   ADD KEY `torta_id` (`torta_id`),
@@ -1242,9 +1242,9 @@ ALTER TABLE `torta`
   ADD KEY `sabor_id` (`sabor_id`);
 
 --
--- Indices de la tabla `tortaprecio`
+-- Indices de la tabla `tortaPrecio`
 --
-ALTER TABLE `tortaprecio`
+ALTER TABLE `tortaPrecio`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tamanoPrecioTorta_id` (`torta_id`,`tamano_id`,`precio_id`) USING BTREE,
   ADD KEY `tamano_id` (`tamano_id`),
@@ -1255,14 +1255,14 @@ ALTER TABLE `tortaprecio`
 --
 
 --
--- AUTO_INCREMENT de la tabla `masasabor`
+-- AUTO_INCREMENT de la tabla `masaSabor`
 --
-ALTER TABLE `masasabor`
+ALTER TABLE `masaSabor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de la tabla `masatipo`
+-- AUTO_INCREMENT de la tabla `masaTipo`
 --
-ALTER TABLE `masatipo`
+ALTER TABLE `masaTipo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `pedido`
@@ -1270,9 +1270,9 @@ ALTER TABLE `masatipo`
 ALTER TABLE `pedido`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT de la tabla `pedidoespecial`
+-- AUTO_INCREMENT de la tabla `pedidoEspecial`
 --
-ALTER TABLE `pedidoespecial`
+ALTER TABLE `pedidoEspecial`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `precio`
@@ -1280,29 +1280,29 @@ ALTER TABLE `pedidoespecial`
 ALTER TABLE `precio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT de la tabla `programaciondiariacab`
+-- AUTO_INCREMENT de la tabla `programacionDiariaCab`
 --
-ALTER TABLE `programaciondiariacab`
+ALTER TABLE `programacionDiariaCab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT de la tabla `programaciondiariaesp`
+-- AUTO_INCREMENT de la tabla `programacionDiariaEsp`
 --
-ALTER TABLE `programaciondiariaesp`
+ALTER TABLE `programacionDiariaEsp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT de la tabla `programaciondiarianor`
+-- AUTO_INCREMENT de la tabla `programacionDiariaNor`
 --
-ALTER TABLE `programaciondiarianor`
+ALTER TABLE `programacionDiariaNor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
--- AUTO_INCREMENT de la tabla `programaciondiariaped`
+-- AUTO_INCREMENT de la tabla `programacionDiariaPed`
 --
-ALTER TABLE `programaciondiariaped`
+ALTER TABLE `programacionDiariaPed`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT de la tabla `programaciondiariasob`
+-- AUTO_INCREMENT de la tabla `programacionDiariaSob`
 --
-ALTER TABLE `programaciondiariasob`
+ALTER TABLE `programacionDiariaSob`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 --
 -- AUTO_INCREMENT de la tabla `sabor`
@@ -1310,19 +1310,19 @@ ALTER TABLE `programaciondiariasob`
 ALTER TABLE `sabor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT de la tabla `semanacab`
+-- AUTO_INCREMENT de la tabla `semanaCab`
 --
-ALTER TABLE `semanacab`
+ALTER TABLE `semanaCab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
--- AUTO_INCREMENT de la tabla `sobrantecab`
+-- AUTO_INCREMENT de la tabla `sobranteCab`
 --
-ALTER TABLE `sobrantecab`
+ALTER TABLE `sobranteCab`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT de la tabla `sobrantedet`
+-- AUTO_INCREMENT de la tabla `sobranteDet`
 --
-ALTER TABLE `sobrantedet`
+ALTER TABLE `sobranteDet`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT de la tabla `sucursal`
@@ -1340,9 +1340,9 @@ ALTER TABLE `tamano`
 ALTER TABLE `torta`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT de la tabla `tortaprecio`
+-- AUTO_INCREMENT de la tabla `tortaPrecio`
 --
-ALTER TABLE `tortaprecio`
+ALTER TABLE `tortaPrecio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 --
 -- Restricciones para tablas volcadas
@@ -1357,93 +1357,93 @@ ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_4` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`);
 
 --
--- Filtros para la tabla `pedidoespecial`
+-- Filtros para la tabla `pedidoEspecial`
 --
-ALTER TABLE `pedidoespecial`
-  ADD CONSTRAINT `pedidoespecial_ibfk_1` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
-  ADD CONSTRAINT `pedidoespecial_ibfk_2` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
-  ADD CONSTRAINT `pedidoespecial_ibfk_3` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+ALTER TABLE `pedidoEspecial`
+  ADD CONSTRAINT `pedidoEspecial_ibfk_1` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `pedidoEspecial_ibfk_2` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
+  ADD CONSTRAINT `pedidoEspecial_ibfk_3` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
 
 --
--- Filtros para la tabla `programaciondiariacab`
+-- Filtros para la tabla `programacionDiariaCab`
 --
-ALTER TABLE `programaciondiariacab`
-  ADD CONSTRAINT `programaciondiariacab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+ALTER TABLE `programacionDiariaCab`
+  ADD CONSTRAINT `programacionDiariaCab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
 
 --
--- Filtros para la tabla `programaciondiariaesp`
+-- Filtros para la tabla `programacionDiariaEsp`
 --
-ALTER TABLE `programaciondiariaesp`
-  ADD CONSTRAINT `programaciondiariaesp_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
-  ADD CONSTRAINT `programaciondiariaesp_ibfk_2` FOREIGN KEY (`pedidoEspecial_id`) REFERENCES `pedidoespecial` (`id`);
+ALTER TABLE `programacionDiariaEsp`
+  ADD CONSTRAINT `programacionDiariaEsp_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programacionDiariaCab` (`id`),
+  ADD CONSTRAINT `programacionDiariaEsp_ibfk_2` FOREIGN KEY (`pedidoEspecial_id`) REFERENCES `pedidoEspecial` (`id`);
 
 --
--- Filtros para la tabla `programaciondiarianor`
+-- Filtros para la tabla `programacionDiariaNor`
 --
-ALTER TABLE `programaciondiarianor`
-  ADD CONSTRAINT `programaciondiarianor_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
-  ADD CONSTRAINT `programaciondiarianor_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
-  ADD CONSTRAINT `programaciondiarianor_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+ALTER TABLE `programacionDiariaNor`
+  ADD CONSTRAINT `programacionDiariaNor_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programacionDiariaCab` (`id`),
+  ADD CONSTRAINT `programacionDiariaNor_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `programacionDiariaNor_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
 
 --
--- Filtros para la tabla `programaciondiariaped`
+-- Filtros para la tabla `programacionDiariaPed`
 --
-ALTER TABLE `programaciondiariaped`
-  ADD CONSTRAINT `programaciondiariaped_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
-  ADD CONSTRAINT `programaciondiariaped_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
-  ADD CONSTRAINT `programaciondiariaped_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+ALTER TABLE `programacionDiariaPed`
+  ADD CONSTRAINT `programacionDiariaPed_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programacionDiariaCab` (`id`),
+  ADD CONSTRAINT `programacionDiariaPed_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `programacionDiariaPed_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
 
 --
--- Filtros para la tabla `programaciondiariasob`
+-- Filtros para la tabla `programacionDiariaSob`
 --
-ALTER TABLE `programaciondiariasob`
-  ADD CONSTRAINT `programaciondiariasob_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programaciondiariacab` (`id`),
-  ADD CONSTRAINT `programaciondiariasob_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
-  ADD CONSTRAINT `programaciondiariasob_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+ALTER TABLE `programacionDiariaSob`
+  ADD CONSTRAINT `programacionDiariaSob_ibfk_1` FOREIGN KEY (`programacionDiariaCab_id`) REFERENCES `programacionDiariaCab` (`id`),
+  ADD CONSTRAINT `programacionDiariaSob_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `programacionDiariaSob_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
 
 --
--- Filtros para la tabla `semanacab`
+-- Filtros para la tabla `semanaCab`
 --
-ALTER TABLE `semanacab`
-  ADD CONSTRAINT `semanacab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+ALTER TABLE `semanaCab`
+  ADD CONSTRAINT `semanaCab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
 
 --
--- Filtros para la tabla `semanadet`
+-- Filtros para la tabla `semanaDet`
 --
-ALTER TABLE `semanadet`
-  ADD CONSTRAINT `semanadet_ibfk_1` FOREIGN KEY (`semanaCab_id`) REFERENCES `semanacab` (`id`),
-  ADD CONSTRAINT `semanadet_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
-  ADD CONSTRAINT `semanadet_ibfk_4` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`);
+ALTER TABLE `semanaDet`
+  ADD CONSTRAINT `semanaDet_ibfk_1` FOREIGN KEY (`semanaCab_id`) REFERENCES `semanaCab` (`id`),
+  ADD CONSTRAINT `semanaDet_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
+  ADD CONSTRAINT `semanaDet_ibfk_4` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`);
 
 --
--- Filtros para la tabla `sobrantecab`
+-- Filtros para la tabla `sobranteCab`
 --
-ALTER TABLE `sobrantecab`
-  ADD CONSTRAINT `sobrantecab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
+ALTER TABLE `sobranteCab`
+  ADD CONSTRAINT `sobranteCab_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursal` (`id`);
 
 --
--- Filtros para la tabla `sobrantedet`
+-- Filtros para la tabla `sobranteDet`
 --
-ALTER TABLE `sobrantedet`
-  ADD CONSTRAINT `sobrantedet_ibfk_1` FOREIGN KEY (`sobranteCab_id`) REFERENCES `sobrantecab` (`id`),
-  ADD CONSTRAINT `sobrantedet_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
-  ADD CONSTRAINT `sobrantedet_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
+ALTER TABLE `sobranteDet`
+  ADD CONSTRAINT `sobranteDet_ibfk_1` FOREIGN KEY (`sobranteCab_id`) REFERENCES `sobranteCab` (`id`),
+  ADD CONSTRAINT `sobranteDet_ibfk_2` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `sobranteDet_ibfk_3` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`);
 
 --
 -- Filtros para la tabla `torta`
 --
 ALTER TABLE `torta`
-  ADD CONSTRAINT `torta_ibfk_1` FOREIGN KEY (`masaTipo_id`) REFERENCES `masatipo` (`id`),
-  ADD CONSTRAINT `torta_ibfk_2` FOREIGN KEY (`masaSabor_id`) REFERENCES `masasabor` (`id`),
+  ADD CONSTRAINT `torta_ibfk_1` FOREIGN KEY (`masaTipo_id`) REFERENCES `masaTipo` (`id`),
+  ADD CONSTRAINT `torta_ibfk_2` FOREIGN KEY (`masaSabor_id`) REFERENCES `masaSabor` (`id`),
   ADD CONSTRAINT `torta_ibfk_3` FOREIGN KEY (`sabor_id`) REFERENCES `sabor` (`id`);
 
 --
--- Filtros para la tabla `tortaprecio`
+-- Filtros para la tabla `tortaPrecio`
 --
-ALTER TABLE `tortaprecio`
-  ADD CONSTRAINT `tortaprecio_ibfk_1` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
-  ADD CONSTRAINT `tortaprecio_ibfk_2` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
-  ADD CONSTRAINT `tortaprecio_ibfk_3` FOREIGN KEY (`precio_id`) REFERENCES `precio` (`id`);
+ALTER TABLE `tortaPrecio`
+  ADD CONSTRAINT `tortaPrecio_ibfk_1` FOREIGN KEY (`torta_id`) REFERENCES `torta` (`id`),
+  ADD CONSTRAINT `tortaPrecio_ibfk_2` FOREIGN KEY (`tamano_id`) REFERENCES `tamano` (`id`),
+  ADD CONSTRAINT `tortaPrecio_ibfk_3` FOREIGN KEY (`precio_id`) REFERENCES `precio` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

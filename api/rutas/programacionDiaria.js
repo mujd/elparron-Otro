@@ -119,8 +119,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 			});
 	});
 
-	// Registrar Semmana
-	router.post("/programacionDiaria", function (req, res) {
+	// Registrar programacion Diaria normal
+	router.post("/programacionDiaria/normal", function (req, res) {
 
 		connection.query(`
 			SELECT	id
@@ -134,17 +134,158 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 					var continuar = false;
 					if (rows.length > 0) {
 						query = `
-						DELETE programacionDiariaPed, programacionDiariaEsp  
-						FROM  programacionDiariaPed, programacionDiariaEsp  
+						DELETE   
+						FROM  programacionDiariaNor
 						WHERE programacionDiariaCab_id  =` + rows[0].id;
 						connection.query(query, function (err, result) {
 							if (err) {
 								res.json({ "error": err });
 							} else {
 								programacionDiariaCab_id = rows[0].id;
-								// registrarDetalleNormal(res, programacionDiariaCab_id, req.body.detalleNormal);
+								registrarDetalleNormal(res, programacionDiariaCab_id, req.body.detalleNormal);
 								// registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
+								// registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
+								// registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
+							}
+						});
+					} else {
+						query = `
+						INSERT  INTO programacionDiariaCab(
+								fecha,
+								sucursal_id)
+						VALUES(` + req.body.fecha + `, ` +
+							req.body.sucursal_id + `)`;
+						connection.query(query, function (err, result) {
+							if (err) {
+								res.json({ "error": err });
+							} else {
+								programacionDiariaCab_id = result.insertId;
+								registrarDetalleNormal(res, programacionDiariaCab_id, req.body.detalleNormal);
+								// registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
+								// registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
+								// registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
+							}
+						});
+					}
+				}
+			});
+	});
+
+	// Registrar programacion Diaria Sobrante
+	router.post("/programacionDiaria/sobrante", function (req, res) {
+
+		connection.query(`
+			SELECT	id
+			FROM 	programacionDiariaCab
+			WHERE 	fecha = ` + req.body.fecha + ` AND
+					sucursal_id = ` + req.body.sucursal_id, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					var programacionDiariaCab_id = 0;
+					var continuar = false;
+					if (rows.length > 0) {
+						query = `
+						DELETE   
+						FROM  programacionDiariaSob
+						WHERE programacionDiariaCab_id  =` + rows[0].id;
+						connection.query(query, function (err, result) {
+							if (err) {
+								res.json({ "error": err });
+							} else {
+								programacionDiariaCab_id = rows[0].id;
+								registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
+							}
+						});
+					} else {
+						query = `
+						INSERT  INTO programacionDiariaCab(
+								fecha,
+								sucursal_id)
+						VALUES(` + req.body.fecha + `, ` +
+							req.body.sucursal_id + `)`;
+						connection.query(query, function (err, result) {
+							if (err) {
+								res.json({ "error": err });
+							} else {
+								programacionDiariaCab_id = result.insertId;
+								registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
+							}
+						});
+					}
+				}
+			});
+	});
+
+	// Registrar programacion Diaria Pedido
+	router.post("/programacionDiaria/pedido", function (req, res) {
+
+		connection.query(`
+			SELECT	id
+			FROM 	programacionDiariaCab
+			WHERE 	fecha = ` + req.body.fecha + ` AND
+					sucursal_id = ` + req.body.sucursal_id, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					var programacionDiariaCab_id = 0;
+					var continuar = false;
+					if (rows.length > 0) {
+						query = `
+						DELETE   
+						FROM  programacionDiariaPed
+						WHERE programacionDiariaCab_id  =` + rows[0].id;
+						connection.query(query, function (err, result) {
+							if (err) {
+								res.json({ "error": err });
+							} else {
+								programacionDiariaCab_id = rows[0].id;
 								registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
+							}
+						});
+					} else {
+						query = `
+						INSERT  INTO programacionDiariaCab(
+								fecha,
+								sucursal_id)
+						VALUES(` + req.body.fecha + `, ` +
+							req.body.sucursal_id + `)`;
+						connection.query(query, function (err, result) {
+							if (err) {
+								res.json({ "error": err });
+							} else {
+								programacionDiariaCab_id = result.insertId;
+								registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
+							}
+						});
+					}
+				}
+			});
+	});
+
+	// Registrar programacion Diaria Pedido Especial
+	router.post("/programacionDiaria/especial", function (req, res) {
+
+		connection.query(`
+			SELECT	id
+			FROM 	programacionDiariaCab
+			WHERE 	fecha = ` + req.body.fecha + ` AND
+					sucursal_id = ` + req.body.sucursal_id, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					var programacionDiariaCab_id = 0;
+					var continuar = false;
+					if (rows.length > 0) {
+						query = `
+						DELETE   
+						FROM  programacionDiariaEsp
+						WHERE programacionDiariaCab_id  =` + rows[0].id;
+						connection.query(query, function (err, result) {
+							if (err) {
+								res.json({ "error": err });
+							} else {
+								programacionDiariaCab_id = rows[0].id;
 								registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
 							}
 						});
@@ -160,9 +301,6 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 								res.json({ "error": err });
 							} else {
 								programacionDiariaCab_id = result.insertId;
-								// registrarDetalleNormal(res, programacionDiariaCab_id, req.body.detalleNormal);
-								// registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
-								registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
 								registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
 							}
 						});
@@ -170,7 +308,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 				}
 			});
 	});
-	/* function registrarDetalleNormal(res, programacionDiariaCab_id, detalleNormal) {
+
+	function registrarDetalleNormal(res, programacionDiariaCab_id, detalleNormal) {
 		var itemOK = 0;
 		for (var index = 0; index < detalleNormal.length; index++) {
 			item = detalleNormal[index];
@@ -202,8 +341,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 				});
 		}
 		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
-	} */
-	/* function registrarDetalleSobrante(res, programacionDiariaCab_id, detalleSobrante) {
+	}
+	function registrarDetalleSobrante(res, programacionDiariaCab_id, detalleSobrante) {
 		var itemOK = 0;
 		for (var index = 0; index < detalleSobrante.length; index++) {
 			item = detalleSobrante[index];
@@ -225,8 +364,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 				});
 		}
 		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
-	} */
-	 function registrarDetallePedido(res, programacionDiariaCab_id, detallePedido) {
+	}
+	function registrarDetallePedido(res, programacionDiariaCab_id, detallePedido) {
 		var itemOK = 0;
 		for (var index = 0; index < detallePedido.length; index++) {
 			item = detallePedido[index];
@@ -258,11 +397,11 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 				});
 		}
 		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
-	} 
+	}
 	function registrarDetalleEspecial(res, programacionDiariaCab_id, detalleEspecial) {
 		var itemOK = 0;
 		for (var index = 0; index < detalleEspecial.length; index++) {
-			item = detalleEspecial[index];
+			itemEspecial = detalleEspecial[index];
 			connection.query(`
 				INSERT  INTO programacionDiariaEsp(
 						programacionDiariaCab_id,
@@ -273,22 +412,24 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 						guiaDespacho,
 						recepcionado,
 						vendido)
-				VALUES(` + programacionDiariaCab_id + `, ` + 
-						   item.pedidoEspecial_id + `,` + 
-						   item.impreso + `, ` + 
-						   item.fabricado + `, ` + 
-						   item.camioneta + `, ` + 
-						   item.guiaDespacho + `, ` + 
-						   item.recepcionado + `, ` + 
-						   item.vendido + `)`, function(err, result) {
-				if(err) {
-					res.json({"error": err});
-				} else {
-					itemOK++;
-				}
-			});
+				VALUES(` + programacionDiariaCab_id + `, ` +
+				itemEspecial.pedidoEspecial_id + `,` +
+				itemEspecial.impreso + `, ` +
+				itemEspecial.fabricado + `, ` +
+				itemEspecial.camioneta + `, ` +
+				itemEspecial.guiaDespacho + `, ` +
+				itemEspecial.recepcionado + `, ` +
+				itemEspecial.vendido + `)`, function (err, result) {
+					if (err) {
+						res.json({ "error": err });
+					} else {
+						itemOK++;
+					}
+				});
 		}
 		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
 	}
+
+
 }
 module.exports = REST_ROUTER;

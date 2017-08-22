@@ -44,14 +44,14 @@ function programacionDiariaBuscarSobrante() {
 	ajaxGet(rutaURL + "/sobrante/" + sobranteFecha + "/" + sobranteSucural, programacionDiariaDesplegarSobrante);
 }
 
-function programacionDiariaDesplegarSobrante(oData) {
+function programacionDiariaDesplegarSobrante(oDataSob) {
 	var item;
 	// programacionDiariaNuevo(true);
-	for (var i = 0; i < oData[0].detalle.length; i++) {
-		item = oData[0].detalle[i];
+	for (var i = 0; i < oDataSob[0].detalleSob.length; i++) {
+		item = oDataSob[0].detalleSob[i];
 		$("#txtSobranteCantidad_" + item.torta_id + "_" + item.tamano_id).val(item.cantidad);
 	}
-	// alert(JSON.stringify(oData));
+	// alert(JSON.stringify(oDataSob));
 	programacionDiariaTotalizaSobrante();
 }
 
@@ -106,7 +106,7 @@ function programacionDiariaTotalizaSobrante() {
 
 }
 
-function programacionDiariaSobSerlializar() {
+function programacionDiariaSobranteSerlializar() {
 
 	var sobranteFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
 	var sobranteSucursal_id = $("#cmbProgramacionDiariaSucursal").val();
@@ -114,7 +114,7 @@ function programacionDiariaSobSerlializar() {
 	var data = {
 		"fecha": sobranteFecha,
 		"sucursal_id": sobranteSucursal_id,
-		"detalle": []
+		"detalleSobrante": []
 	}
 
 	$("#tabSobranteProgramacionDiaria").find("input[type='text']").each(function () {
@@ -123,18 +123,18 @@ function programacionDiariaSobSerlializar() {
 			"tamano_id": $(this).attr("id").split("_")[2],
 			"cantidad": $(this).val()
 		}
-		data.detalle.push(item);
+		data.detalleSobrante.push(item);
 	});
 	return data;
 
 }
 
-  function programacionDiariaSobRegistrar() {
-	var oData = programacionDiariaSobSerlializar();
-	alert(JSON.stringify(oData));
+  function programacionDiariaSobranteRegistrar() {
+	var oDataSob = programacionDiariaSobranteSerlializar();
+	alert(JSON.stringify(oDataSob));
 	var mensajeSob = 'Datos Registrados ';
-	ajaxPost(rutaURL + "/programacionDiaria", oData);
-	$('#alertModalReg').find('.modal-body p').text(mensaje);
+	ajaxPost(rutaURL + "/programacionDiaria/sobrante", oDataSob);
+	$('#alertModalReg').find('.modal-body p').text(mensajeSob);
 	$('#alertModalReg').modal('show')
 } 
  
@@ -159,8 +159,8 @@ function sobProDiariaCarga() {
 		}).blur(function () {
 			programacionDiariaBuscarSobrante();
 		});
-		$("#btnRegistrarProgramacionDiaria").click(function () {
+		/* $("#btnRegistrarProgramacionDiaria").click(function () {
 			programacionDiariaSobRegistrar();
-		});
+		}); */
 	});
 }

@@ -162,7 +162,7 @@ function programacionDiariaNuevo(tipo) {
 
 }
 
-  function programacionDiariaSerlializar() {
+  function programacionDiariaNormalSerlializar() {
 
 	var fecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
 	var sucursal_id = $("#cmbProgramacionDiariaSucursal").val();
@@ -170,28 +170,31 @@ function programacionDiariaNuevo(tipo) {
 	var data = {
 		"fecha": fecha,
 		"sucursal_id": sucursal_id,
-		"detalle": []
+		"detalleNormal": []
 	}
 
 	$("#tabProgramacionDiaria").find("input[type='text']").each(function () {
 		item = {
 			"torta_id": $(this).attr("id").split("_")[1],
-			"tamano_id": $(this).attr("id").split("_")[2]
+			"tamano_id": $(this).attr("id").split("_")[2],
+			"impreso": "NULL",
+			"fabricado":"NULL",
+			"camioneta":"NULL",
+			"guiaDespacho":"NULL",
+			"recepcionado":"NULL",
+			"vendido":"NULL"
 		}
-		data.detalle.push(item);
+		data.detalleNormal.push(item);
 	});
 	return data;
 
 } 
 
-function programacionDiariaRegistrar() {
-	var oDataSob = programacionDiariaSobSerlializar();
-	var oDataNor = programacionDiariaSerlializar();
-	var oDataPed = programacionDiariaSerlializarPedido();
-	var oDataEsp = programacionDiariaSerlializarPedidoEspecial();
-	// alert(JSON.stringify(oData));
+function programacionDiariaNormalRegistrar() {
+	var oDataNor = programacionDiariaNormalSerlializar();
+	alert(JSON.stringify(oDataNor));
 	var mensaje = 'Datos Registrados ';
-	ajaxPost(rutaURL + "/programacionDiaria", oDataSob, oDataNor, oDataPed, oDataEsp);
+	ajaxPost(rutaURL + "/programacionDiaria/normal",oDataNor);
 	$('#alertModalReg').find('.modal-body p').text(mensaje);
 	$('#alertModalReg').modal('show')
 } 
@@ -243,9 +246,9 @@ function programacionDiariaCargar() {
 		$("#btnNuevoProgramacionDiaria").click(function () { 
 			programacionDiariaNuevo(); 
 		});
-		/* $("#btnRegistrarProgramacionDiaria").click(function () {
+		 $("#btnRegistrarProgramacionDiaria").click(function () {
 			programacionDiariaValidaRegistro();
-		}); */
+		}); 
 	});
 }
 
@@ -293,7 +296,10 @@ function programacionDiariaValidaRegistro() {
 		$('#alertModal').modal('show')
 		return false;
 	} else {
-		programacionDiariaRegistrar();
+		/* programacionDiariaNormalRegistrar();
+		programacionDiariaSobranteSerlializar();
+		programacionDiariaPedidoRegistrar(); */
+		programacionDiariaPedidoEspecialRegistrar();
 	}
 }
 

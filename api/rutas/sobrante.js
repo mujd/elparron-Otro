@@ -91,11 +91,11 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 							fecha: rows[item].fecha,
 							sucursal_id: rows[item].sucursal_id,
 							sucursal_nombre: rows[item].sucursal_nombre,
-							detalle: []
+							detalleSob: []
 						}
 						);
 					}
-					json[json.length - 1].detalle.push(
+					json[json.length - 1].detalleSob.push(
 					{
 						torta_id: rows[item].torta_id,
 						cantidad: rows[item].cantidad,
