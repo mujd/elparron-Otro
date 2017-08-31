@@ -8,29 +8,7 @@ Samsung R440
 var rutaURL = "http://localhost:3000/api";
 
 
-var jsonTableConfig = {
-	"dom": '<"toolbar">frtip',
-	"language": {
-		"sLengthMenu": "Mostrar _MENU_ registros",
-		"sInfo": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
-		"sSearch": "Buscar:",
-		"oPaginate": {
-			"sFirst": "Primero",
-			"sLast": "Último",
-			"sNext": "Siguiente",
-			"sPrevious": "Anterior"
-		}
-	},
-	"info": false,
-	"columnDefs": [
-	{
-	    "targets": [0],
-	    "visible": false,
-	    "searchable": false
-	}],
-	"scrollY": "450px",
-	"scrollCollapse": true,
-}
+
 
 function cma_cargaLayout() {
     $.getJSON("js/layout.js", function(jsonLayout){
@@ -71,7 +49,7 @@ function cma_subOpcion(iJSON) {
 function cma_cargaOpcion(pagina, oFunc) {
 	$("#cma-layout > content > section").load("html/" + pagina, function() {
 		$("#cma-layout > content > nav").css("left", "-200px");
-		oFunc();
+		// oFunc();
 	});
 }
 
@@ -89,7 +67,7 @@ function ajaxPut(url, datos, callback) {
 		data: datos,
 		type: 'PUT',
 		success: function(response) {
-			//callback(data);
+			callback(data);
 		}
 	}).done(function(data){ callback(data); });
 }
@@ -99,7 +77,7 @@ function ajaxDelete(url, callback) {
 		url: url,
 		type: 'DELETE',
 		success: function(response) {
-			//callback(data);
+			callback(data);
 		}
 	}).done(function(data){ callback(data); });
 }
@@ -123,6 +101,31 @@ function formatoFecha(oFecha) {
 }
 
 /*
+
+var jsonTableConfig = {
+	"dom": '<"toolbar">frtip',
+	"language": {
+		"sLengthMenu": "Mostrar _MENU_ registros",
+		"sInfo": "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+		"sSearch": "Buscar:",
+		"oPaginate": {
+			"sFirst": "Primero",
+			"sLast": "Último",
+			"sNext": "Siguiente",
+			"sPrevious": "Anterior"
+		}
+	},
+	"info": false,
+	"columnDefs": [
+	{
+	    "targets": [0],
+	    "visible": false,
+	    "searchable": false
+	}],
+	"scrollY": "450px",
+	"scrollCollapse": true,
+}	
+
 var datetime= $("#datePedido").val(); // Default datetime will be like this.
 var date=datetime.split('/')[2].split(' ')[0] + "-" + datetime.split('/')[1] + "-" + datetime.split('/')[0] + " " + datetime.split('/')[2].split(' ')[1] + ":00";
 alert(date);

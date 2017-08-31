@@ -162,7 +162,7 @@ function programacionDiariaNuevo(tipo) {
 
 }
 
-  function programacionDiariaNormalSerlializar() {
+  function programacionDiariaNormalSerializar() {
 
 	var fecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
 	var sucursal_id = $("#cmbProgramacionDiariaSucursal").val();
@@ -176,13 +176,7 @@ function programacionDiariaNuevo(tipo) {
 	$("#tabProgramacionDiaria").find("input[type='text']").each(function () {
 		item = {
 			"torta_id": $(this).attr("id").split("_")[1],
-			"tamano_id": $(this).attr("id").split("_")[2],
-			"impreso": "NULL",
-			"fabricado":"NULL",
-			"camioneta":"NULL",
-			"guiaDespacho":"NULL",
-			"recepcionado":"NULL",
-			"vendido":"NULL"
+			"tamano_id": $(this).attr("id").split("_")[2]
 		}
 		data.detalleNormal.push(item);
 	});
@@ -191,7 +185,7 @@ function programacionDiariaNuevo(tipo) {
 } 
 
 function programacionDiariaNormalRegistrar() {
-	var oDataNor = programacionDiariaNormalSerlializar();
+	var oDataNor = programacionDiariaNormalSerializar();
 	alert(JSON.stringify(oDataNor));
 	var mensaje = 'Datos Registrados ';
 	ajaxPost(rutaURL + "/programacionDiaria/normal",oDataNor);
@@ -296,10 +290,7 @@ function programacionDiariaValidaRegistro() {
 		$('#alertModal').modal('show')
 		return false;
 	} else {
-		/* programacionDiariaNormalRegistrar();
-		programacionDiariaSobranteSerlializar();
-		programacionDiariaPedidoRegistrar(); */
-		programacionDiariaPedidoEspecialRegistrar();
+		 programacionDiariaNormalRegistrar();
 	}
 }
 

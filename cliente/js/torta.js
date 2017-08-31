@@ -24,7 +24,7 @@ function tortaLlenaTabla(oData) {
 
 function desplegarMasaTipo(oData) {
 	$("#cmbMasaTipo option").remove();
-	$("#cmbMasaTipo").append("<option value=''>:: Seleccione Tipo de Masa ::</option>");
+	$("#cmbMasaTipo").append("<option value=''>:: Seleccione ::</option>");
 	$(oData).each(function() {
 		$("#cmbMasaTipo").append("<option value='" + this.id + "'>" + this.nombre + "</option>");
 	});
@@ -32,7 +32,7 @@ function desplegarMasaTipo(oData) {
 
 function desplegarMasaSabor(oData) {
 	$("#cmbSaborMasa option").remove();
-	$("#cmbSaborMasa").append("<option value=''>:: Seleccione Sabor de Masa ::</option>");
+	$("#cmbSaborMasa").append("<option value=''>:: Seleccione ::</option>");
 	$(oData).each(function() {
 		$("#cmbSaborMasa").append("<option value='" + this.id + "'>" + this.nombre + "</option>");
 	});
@@ -40,7 +40,7 @@ function desplegarMasaSabor(oData) {
 
 function desplegarSaborTorta(oData) {
 	$("#cmbSaborTorta option").remove();
-	$("#cmbSaborTorta").append("<option value=''>:: Seleccione Sabor de la Torta ::</option>");
+	$("#cmbSaborTorta").append("<option value=''>:: Seleccione ::</option>");
 	$(oData).each(function() {
 		$("#cmbSaborTorta").append("<option value='" + this.id + "'>" + this.nombre + "</option>");
 	});
@@ -95,7 +95,7 @@ function tortaEliminar() {
 function tortaCargar() {
 	$("#cma-layout").load("torta.html", function() {
 		$("#btnNuevaTorta").click(function() { tortaAgregar(); });
-		$("#btnRegistrarTorta").click(function() { tortaRegistrar(); });
+		$("#btnRegistrarTorta").click(function() { tortaValidaTextos(); });
 		$("#btnEliminarTorta").click(function() {  
 				tortaEliminar();
 				$('#modalEliminarTorta').modal('toggle'); 
@@ -103,4 +103,19 @@ function tortaCargar() {
 		tortaListar();
 		tortaLimpiar(true);		
 	});
+}
+/* VALIDACIONES */
+function tortaValidaTextos() {
+	var msg = "";
+	if ($('#cmbMataTipo').val() === '' || $('#cmbSaborMasa').val() === '' || $('#cmbSaborTorta').val() === '') {
+		msg = msg + "\n* Debe seleccionar los ingredientes de la torta";
+	}
+	if (msg != "") {
+		var message = 'El siguiente error ocurrio debido a que:' + msg;
+		$('#alertModal').find('.modal-body p').text(message);
+		$('#alertModal').modal('show')
+		return false;
+	} else {
+		tortaRegistrar();
+	}
 }

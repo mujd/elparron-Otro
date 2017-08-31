@@ -54,41 +54,6 @@ function programacionDiariaBuscarPedidoEspecial() {
 	ajaxGet(rutaURL + "/pedidoEspecial/" + pedidoEspecialFecha + "/" + pedidoEspecialSucural, pedidoEspecialProgramacionDiariaDesplegarTortas);
 }
 
-function programacionDiariaPedidoEspecialSerlializar() {
-
-	var especialFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
-	var especialSucursal_id = $("#cmbProgramacionDiariaSucursal").val();
-
-	var data = {
-		"fecha": especialFecha,
-		"sucursal_id": especialSucursal_id,
-		"detalleEspecial": []
-	}
-	$("#tabProgramacionDiaria").find("input[type='text']").each(function () {
-		item = {
-			"pedidoEspecial_id": $("#tdEspecialId").val(),
-			"impreso": "NULL",
-			"fabricado": "NULL",
-			"camioneta": "NULL",
-			"guiaDespacho": "NULL",
-			"recepcionado": "NULL",
-			"vendido": "NULL"
-		}
-	});
-	data.detalleEspecial.push(item);
-	return data;
-
-}
-
-function programacionDiariaPedidoEspecialRegistrar() {
-	var oDataEsp = programacionDiariaPedidoEspecialSerlializar();
-	alert(JSON.stringify(oDataEsp));
-	var mensaje = 'Datos Registrados ';
-	ajaxPost(rutaURL + "/programacionDiaria/especial", oDataEsp);
-	$('#alertModalReg').find('.modal-body p').text(mensaje);
-	$('#alertModalReg').modal('show')
-}
-
 function pedidoEspecialProDiariaCarga() {
 	$("#cma-layout").load("programacionDiaria.html", function () {
 		$("#cmbProgramacionDiariaSucursal").click(function () {

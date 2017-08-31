@@ -6,64 +6,83 @@
 			<!--ID-->
 			<input id="txtID" type="hidden" class="form-control">
 			<!--NUM-->
-			<div class="col-md-3">
+			<div class="col-md-4 col-sm-4 col-xs-4">
 				<div class="form-group">
-					<label>Num</label>
-					<input id="txtNum" type="text" class="form-control">
+					<label class="tamanoLabelGeneral">Num</label>
+					<input id="txtNum" type="text" class="form-control tamanoInputGeneral">
 				</div>
 			</div>
 			<!--PERSONAS-->
-			<div class="col-md-3">
+			<div class="col-md-4 col-sm-4 col-xs-4">
 				<div class="form-group">
-					<label>Personas</label>
-					<input id="txtPersonas" type="text" class="form-control">
+					<label class="tamanoLabelGeneral">Personas</label>
+					<input id="txtPersonas" type="text" class="form-control tamanoInputGeneral">
 				</div>
 			</div>
-			<div class="col-md-6">
-				<button id="btnRegistrarTamano" data-target="#alertModal" style="margin-top: 25px; margin-right: 1px;" class="btn btn-success ">Registrar</button>
-				<button id="btnEliminarTamano" style="margin-top: 25px; margin-right: 1px;" class="btn btn-danger">Eliminar</button>
+			<div class="col-md-2 btn-group-vertical col-sm-3 col-xs-3">
+				<button id="btnRegistrarTamano" data-target="#alertModal" class="btn btn-success btn-tamano-general">Registrar</button>
+				<button id="btnEliminaTamano" class="btn btn-danger btn-tamano-general" data-toggle="modal" data-target=".bs-example-modal-sm">Eliminar</button>
+				<button id="btnNuevoTamano" class="btn btn-primary btn-tamano-general">Agregar</button>
 			</div>
 		</div>
-		
+
 		<!--TABLA-->
-		<div class="row">
-			<div class="table-responsive col-md-6 rueda-panel" id="divTamano">
-				<table id="tabTamano" class="table table-striped table-bordered table-condensed tableHover">
+		<div class="row col-md-6 col-sm-6 col-xs-8 ">
+			<div class="table-responsive rueda-panel" id="divTamano">
+				<table id="tabTamano" class="table table-striped table-bordered table-condensed tableHover tamanoTablasGeneral">
 					<thead>
 						<tr>
-							<th class="col-md-4">Id</th>
-							<th class="col-md-4">Num</th>
-							<th class="col-md-4">Personas</th>
+							<th>Id</th>
+							<th>Num</th>
+							<th>Personas</th>
 						</tr>
 					</thead>
 					<tbody></tbody>
 				</table>
 			</div>
-			<button id="btnNuevoTamano" class="btn btn-primary btn-sm">Agregar</button>
 			<div class="col-md-4 text-center pull-right" id="divTamanoError"></div>
 		</div>
 	</div>
 	<!-- Inicio modal -->
-			<div id="alertModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Error Detectado!</h4>
-						</div>
-						<div class="modal-body">
-							<p></p>
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-danger" data-dismiss="modal">
-                    Close</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
+	<div id="alertModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Error Detectado!</h4>
 				</div>
-				<!-- /.modal-dialog -->
+				<div class="modal-body">
+					<p></p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger" data-dismiss="modal">
+                    Close</button>
+				</div>
 			</div>
-			<!-- /.modal -->
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<!-- Small modal eliminar torta -->
+	<div id="modalEliminarTamano" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Confirme eliminacion.</h4>
+				</div>
+				<div class="modal-body">
+					<p>Esta seguro que desea eliminar este Tamaño?&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button id="btnEliminarTamano" type="button" class="btn btn-danger">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Terminar smallmodal-->
 </div>
 <script>
 	$(document).ready(function () {

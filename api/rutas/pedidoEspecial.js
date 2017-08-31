@@ -10,7 +10,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
     // Listar
     router.get("/pedidoEspecial", function (req, res) {
         connection.query(
-             `SELECT PES.id,
+            `SELECT PES.id,
                     TOR.id AS torta_id,
                     MTP.id AS masaTipo_id,
 					MTP.nombre AS masaTipo_nombre,
@@ -49,10 +49,10 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
     });
 
     // Listar por fecha y sucursal
-    	// Buascar pedidoEspecial por dia y sucursal
-	router.get("/pedidoEspecial/:fechaEntrega/:sucursal_id", function(req, res){
-		connection.query(
-			 `SELECT PES.id,
+    // Buascar pedidoEspecial por dia y sucursal
+    router.get("/pedidoEspecial/:fechaEntrega/:sucursal_id", function (req, res) {
+        connection.query(
+            `SELECT PES.id,
                     TOR.id AS torta_id,
                     MTP.id AS masaTipo_id,
 					MTP.nombre AS masaTipo_nombre,
@@ -113,7 +113,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
             });
     });
 
-    // Insertar
+                          // Insertar
     router.post("/pedidoEspecial", function(req, res){
         connection.query(`INSERT INTO pedidoEspecial(
                                       torta_id, 
@@ -127,7 +127,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
                                       mensaje,
                                       abono,
                                       forma,
-                                      diet
+                                      diet,
+                                      saldo
                                       ) 
                         VALUES(
                             ` + req.body.torta_id + `,
@@ -141,7 +142,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
                             '` + req.body.mensaje + `',
                             '` + req.body.abono + `',
                             '` + req.body.forma + `',
-                            '` + req.body.diet + `')`,
+                            '` + req.body.diet + `',
+                            '` + req.body.saldo + `')`,
                             
                             function(err, rows) {
             if(err){
@@ -154,23 +156,23 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
     });
 
     // Modificar
-    router.put("/pedidoEspecial/:id", function(req, res){
-        connection.query("UPDATE pedidoEspecial SET torta_id = " + req.body.torta_id + ", solicitante = " + req.body.solicitante + ", telefono = " + req.body.telefono + ", fechaEntrega = " + req.body.fechaEntrega + ", precio = " + req.body.precio + " WHERE id = " + req.params.id, function(err, rows) {
-            if(err){
-                res.json({"error": err});
+    router.put("/pedidoEspecial/:id", function (req, res) {
+        connection.query("UPDATE pedidoEspecial SET torta_id = " + req.body.torta_id + ", solicitante = " + req.body.solicitante + ", telefono = " + req.body.telefono + ", fechaEntrega = " + req.body.fechaEntrega + ", precio = " + req.body.precio + " WHERE id = " + req.params.id, function (err, rows) {
+            if (err) {
+                res.json({ "error": err });
                 console.log(err);
-            }else{
+            } else {
                 res.json("pedidoEspecial modificado");
             }
         });
     });
 
     // Eliminar
-    router.delete("/pedidoEspecial/:id", function(req, res){
-        connection.query("DELETE FROM pedidoEspecial WHERE id = " + req.params.id, function(err, rows){
-            if(err){
-                res.json({"error": err});
-            }else{
+    router.delete("/pedidoEspecial/:id", function (req, res) {
+        connection.query("DELETE FROM pedidoEspecial WHERE id = " + req.params.id, function (err, rows) {
+            if (err) {
+                res.json({ "error": err });
+            } else {
                 res.json("pedido especial eliminado");
             }
         });

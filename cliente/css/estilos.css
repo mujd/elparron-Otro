@@ -229,8 +229,44 @@ i:hover {
 
 .mt-btn-torta {
     margin-top: 382px;
-    margin-left: -500px;
 }
+
+.mt-btn-torta-general {
+    margin-bottom: 10px;
+    width: 90px;
+}
+
+
+/* Maestro de Tamaño */
+
+.btn-tamano-general {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90px;
+}
+
+#divTamano {
+    margin-top: -50px;
+}
+
+
+/* FIN maestro tamaño */
+
+
+/* Maestro de Sucursal */
+
+.btn-sucursal-general {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90px;
+}
+
+#divTabSucursal {
+    margin-top: -50px;
+}
+
+
+/* FIN maestro sucursal */
 
 
 /* Agrega Scrollbar */
@@ -393,12 +429,11 @@ i:hover {
     margin-top: -25px;
 }
 
-#ulPrecio {
+.listado-ul {
     list-style: none;
 }
 
-
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 150px) and (max-width: 768px) {
     /* For mobile phones: */
     .radio-inlinePedido {
         list-style: none;
@@ -412,9 +447,16 @@ i:hover {
     .pedidoBotones {
         margin-right: 15px;
     }
+    .mt-btn-torta-general {
+        width: 47%;
+    }
+    .mt-btn-torta {
+        width: 25%;
+        margin-top: -5px;
+    }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (min-width: 769px) and (max-width: 991px) {
     /* For tablets: */
     .radio-inlinePedido {
         display: block;
@@ -427,5 +469,16 @@ i:hover {
     .pedidoBotones {
         margin-top: -30px;
     }
+    .mt-btn-torta-general {
+        width: 47%;
+    }
+    .mt-btn-torta {
+        width: 25%;
+        margin-top: -5px;
+    }
+    /* Maestro de Sucursal */
+    #divTabSucursal {
+          margin-top: -50px;  
+    }
+    /* FIN maestro sucursal */
 }
-

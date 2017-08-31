@@ -75,8 +75,9 @@ function sucursalCargar() {
 		$("#btnRegistrarSucursal").click(function() { 
 			validaCampos(); 
 		});
-		$("#btnEliminarSucursal").click(function() { 
-			sucursalEliminar(); 
+		$("#btnEliminarSucursal").click(function() {  
+				sucursalEliminar();
+				$('#modalEliminarSucursal').modal('toggle'); 
 		});
 	});
 }

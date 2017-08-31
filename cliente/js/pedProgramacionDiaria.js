@@ -111,43 +111,6 @@ function pedidoProgramacionDiariaTortaListar() {
 
 }
 
-function programacionDiariaPedidoSerlializar() {
-
-	var pedidoFecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
-	var pedidoSucursal_id = $("#cmbProgramacionDiariaSucursal").val();
-
-	var data = {
-		"fecha": pedidoFecha,
-		"sucursal_id": pedidoSucursal_id,
-		"detallePedido": []
-	}
-
-	$("#tabPedidoProgramacionDiaria").find("input[type='text']").each(function () {
-		item = {
-			"torta_id": $(this).attr("id").split("_")[1],
-			"tamano_id": $(this).attr("id").split("_")[2],
-			"impreso": "NULL",
-			"fabricado": "NULL",
-			"camioneta": "NULL",
-			"guiaDespacho": "NULL",
-			"recepcionado": "NULL",
-			"vendido": "NULL"
-		}
-		data.detallePedido.push(item);
-	});
-	return data;
-
-}
-
-function programacionDiariaPedidoRegistrar() {
-	var oDataPed = programacionDiariaPedidoSerlializar();
-	alert(JSON.stringify(oDataPed));
-	var mensaje = 'Datos Registrados ';
-	ajaxPost(rutaURL + "/programacionDiaria/pedido", oDataPed);
-	$('#alertModalReg').find('.modal-body p').text(mensaje);
-	$('#alertModalReg').modal('show')
-}
-
 /* FIN Programacion diaria pedidos */
 
 function pedProDiariaCarga() {

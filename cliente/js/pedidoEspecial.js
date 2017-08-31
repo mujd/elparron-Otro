@@ -1,4 +1,3 @@
-
 var pedidoEspecial = {
 	nombre: "pedidoEspecial",
 	paginaInicial: "pedidoEspecial.html",
@@ -25,7 +24,8 @@ function pedidoEspecialSerializar() {
 		"mensaje": $("#txtMensaje").val(),
 		"abono": $("#txtAbono").val(),
 		"forma": forma,
-		"diet": diet
+		"diet": diet,
+		"saldo": $("#txtPagoTotal").val()
 	}
 	/* $("#ulTamano").find("input[name=personas]:checked").each(function () {
 		datos.tamano_id.push($(this).attr("id"));
@@ -66,12 +66,13 @@ function pedidoLimpiarEsp(pedidoTipo) {
 	$("#txtPrecios").val("");
 	$("#txtTelefono").val("");
 	$("#datePedidoEspecial").val("");
-	$("#chDiet").val("1");
-	$("#chForma").val("1"); 
+	$("#chDiet").removeAttr('checked');
+	$("#chForma").removeAttr('checked');
 	$("#txtAbono").val("");
 	$("#txtCaracteristicas").val("");
 	$("#txtMensaje").val("");
 	$("#txtTorta").val("");
+	$("#txtPagoTotal").val("");
 	ajaxGet(rutaURL + "/masaTipo", this.desplegarTipoMasaEsp);
 	ajaxGet(rutaURL + "/sucursal", this.desplegarSucursalRetiroEsp);
 	if (pedidoTipo) {
@@ -126,13 +127,16 @@ function pedidoCargarFechaYHoraEsp() {
 
 function pedidoCargarEsp() {
 	$("#cma-layout").load("pedido.html", function () {
-		$("#btnNuevoPedidoEspcial").click(function () {
+		$("#btnNuevoPedidoEspecial").click(function () {
 			pedidoLimpiarEsp(true);
 		});
 		$("#btnRegistrarPedidoEspecial").click(function () {
-			pedidoRegistrarEsp();
+			validaCamposPedidoEspecial();
 
 		});
+
+		$("#txtAbono").click(function () { obtenerPagoTotal(); }).blur(function () { obtenerPagoTotal(); });
+		
 		$("#cmbSabor").click(function () {
 			obtenerTortaIdEsp();
 		}).blur(function () {
@@ -144,6 +148,7 @@ function pedidoCargarEsp() {
 		$("#cmbSaborMasa").click(function () { masaTipoMasaSaborSaborMostrarEsp(); }).blur(function () { masaTipoMasaSaborSaborMostrarEsp(); });
 		$("#cmbTamano").click(function () { obtenerPrecioTortaEsp(); }).blur(function () { obtenerPrecioTortaEsp(); }).focus(function () { obtenerPrecioTortaEsp(); });
 		$("#ulPrecio").append("<li><input class='form-control' type='text' value='' readonly></li>");
+		$("#ulPagoTotal").append("<li><input class='form-control' type='text' value='' readonly></li>");
 		pedidoTamanoMostrarEsp();
 		pedidoLimpiarEsp(true);
 	});
@@ -162,16 +167,6 @@ function pedidoTamanoDesplegarEsp(oData) { // Despliega los tamaños solicitadas
 		$("#cmbTamano").append("<option value='" + this.id + "'>" + this.personas + " Personas</option>")
 	});
 }
-
-/* function pedidoTamanoDesplegarEsp(oData) { // Despliega los tamaños solicitadas a la API
-	$("#ulTamano li").remove();
-	$(oData).each(function () {
-
-		$("#ulTamano").append("<label class='radio-inline'><li class='listado-li'><input type='radio' name='personas' id='" + this.id + "' value='" + this.id + "'>&nbsp;" + this.personas + " Personas</li></label>");
-		// ACA EN VEZ DE ID ERA VALUE CORRECION: tuve que agregar el atributo value para que sirviera
-
-	});
-} */
 
 /* obtener torta id*/
 
@@ -230,7 +225,54 @@ function desplegarPrecioTortaEsp(oData) { // Despliega la id de la torta
 	});
 }
 
-function validaTelefono(e) {
+/* desplegar total a pagar */
+
+function obtenerPagoTotal() { // obtiene el total a pagar
+	var precio, abono, total;
+	precio = $("#txtPrecios").val();
+	abono = $("#txtAbono").val();
+	if( $("#txtAbono").val() == 0){
+		total = precio;
+	}else{
+		total = precio - abono;
+	}
+	$("#ulPagoTotal li").remove();
+	$("#ulPagoTotal").append("<li><input id='txtPagoTotal' class='form-control' type='text' value='" + total + "' readonly></li>");
+}
+
+
+/* VALIDACIONES */
+function validaCamposPedidoEspecial() {
+	var msg = "";
+	if ($('#txtSolicitante').val().trim() === "" || $('#txtTelefono').val().trim() === "") {
+		msg = msg + "\n* Debe colocar su nombre y telefono";
+	}
+	if ($('#datePedidoEspecial').val().trim() === "") {
+		msg = msg + "\n* Debe seleccionar una fecha de retiro";
+	}
+	if ($('#cmbTipoMasa').val().trim() === '' || $('#cmbSaborMasa').val().trim() === '' || $('#cmbSabor').val().trim() === '') {
+		msg = msg + "\n* Debe seleccionar los ingredientes de la torta";
+	}
+	if ($('#cmbSucursalRetiro').val().trim() === '') {
+		msg = msg + "\n* Debe seleccionar una Sucursal de retiro";
+	}
+	if ($('#cmbTamano').val().trim() === "") {
+		msg = msg + "\n* Debe seleccionar el tamaño de la torta";
+	}
+	if ($('#txtPrecios').val().trim() <= $('#txtAbono').val().trim()) {
+		msg = msg + "\n* El abono no puede ser mayor al precio";
+	}
+	if (msg != "") {
+		var message = 'El siguiente error ocurrio debido a que:' + msg;
+		$('#alertModal').find('.modal-body p').text(message);
+		$('#alertModal').modal('show')
+		return false;
+	} else {
+		pedidoRegistrarEsp(); 
+	}
+}
+
+function validaSoloNumeros(e) {
 	tecla = (document.all) ? e.keyCode : e.which;
 
 	//Tecla de retroceso para borrar, siempre la permite

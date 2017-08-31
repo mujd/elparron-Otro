@@ -7,7 +7,7 @@ function REST_ROUTER(router, connection, md5) {
 
 REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 
-	// Búsqueda por ID
+	// BÃºsqueda por ID
 	router.get("/programacionDiaria/:id", function (req, res) {
 		connection.query("SELECT SCAB.id, DATE_FORMAT(SCAB.fecha,'%d/%m/%Y') AS fecha, SUC.id AS sucursal_id, SUC.nombre AS sucursal_nombre, SDET.cantidad, MTP.id AS masaTipo_id, MTP.nombre AS masaTipo_nombre, MSB.id AS masaSabor_id, MSB.nombre AS masaSabor_nombre, SAB.id AS sabor_id, SAB.nombre AS sabor_nombre, TAM.id AS tamano_id, TAM.personas AS personas FROM programacionDiariaCab SCAB INNER JOIN sucursal SUC ON SCAB.sucursal_id = SUC.id INNER JOIN programacionDiariaDet SDET ON SCAB.id = SDET.programacionDiariaCab_id INNER JOIN tamano TAM ON SDET.tamano_id = TAM.id INNER JOIN torta TOR ON SDET.torta_id = TOR.id INNER JOIN masaTipo MTP ON TOR.masaTipo_id = MTP.id INNER JOIN masaSabor MSB ON TOR.masaSabor_id = MSB.id INNER JOIN sabor SAB ON TOR.sabor_id = SAB.id WHERE SCAB.id = " + req.params.id + " ORDER BY SDET.id", function (err, rows) {
 			if (err) {
@@ -134,7 +134,7 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 					var continuar = false;
 					if (rows.length > 0) {
 						query = `
-						DELETE   
+						DELETE
 						FROM  programacionDiariaNor
 						WHERE programacionDiariaCab_id  =` + rows[0].id;
 						connection.query(query, function (err, result) {
@@ -143,9 +143,6 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 							} else {
 								programacionDiariaCab_id = rows[0].id;
 								registrarDetalleNormal(res, programacionDiariaCab_id, req.body.detalleNormal);
-								// registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
-								// registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
-								// registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
 							}
 						});
 					} else {
@@ -161,147 +158,6 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 							} else {
 								programacionDiariaCab_id = result.insertId;
 								registrarDetalleNormal(res, programacionDiariaCab_id, req.body.detalleNormal);
-								// registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
-								// registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
-								// registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
-							}
-						});
-					}
-				}
-			});
-	});
-
-	// Registrar programacion Diaria Sobrante
-	router.post("/programacionDiaria/sobrante", function (req, res) {
-
-		connection.query(`
-			SELECT	id
-			FROM 	programacionDiariaCab
-			WHERE 	fecha = ` + req.body.fecha + ` AND
-					sucursal_id = ` + req.body.sucursal_id, function (err, rows) {
-				if (err) {
-					res.json({ "error": err });
-				} else {
-					var programacionDiariaCab_id = 0;
-					var continuar = false;
-					if (rows.length > 0) {
-						query = `
-						DELETE   
-						FROM  programacionDiariaSob
-						WHERE programacionDiariaCab_id  =` + rows[0].id;
-						connection.query(query, function (err, result) {
-							if (err) {
-								res.json({ "error": err });
-							} else {
-								programacionDiariaCab_id = rows[0].id;
-								registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
-							}
-						});
-					} else {
-						query = `
-						INSERT  INTO programacionDiariaCab(
-								fecha,
-								sucursal_id)
-						VALUES(` + req.body.fecha + `, ` +
-							req.body.sucursal_id + `)`;
-						connection.query(query, function (err, result) {
-							if (err) {
-								res.json({ "error": err });
-							} else {
-								programacionDiariaCab_id = result.insertId;
-								registrarDetalleSobrante(res, programacionDiariaCab_id, req.body.detalleSobrante);
-							}
-						});
-					}
-				}
-			});
-	});
-
-	// Registrar programacion Diaria Pedido
-	router.post("/programacionDiaria/pedido", function (req, res) {
-
-		connection.query(`
-			SELECT	id
-			FROM 	programacionDiariaCab
-			WHERE 	fecha = ` + req.body.fecha + ` AND
-					sucursal_id = ` + req.body.sucursal_id, function (err, rows) {
-				if (err) {
-					res.json({ "error": err });
-				} else {
-					var programacionDiariaCab_id = 0;
-					var continuar = false;
-					if (rows.length > 0) {
-						query = `
-						DELETE   
-						FROM  programacionDiariaPed
-						WHERE programacionDiariaCab_id  =` + rows[0].id;
-						connection.query(query, function (err, result) {
-							if (err) {
-								res.json({ "error": err });
-							} else {
-								programacionDiariaCab_id = rows[0].id;
-								registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
-							}
-						});
-					} else {
-						query = `
-						INSERT  INTO programacionDiariaCab(
-								fecha,
-								sucursal_id)
-						VALUES(` + req.body.fecha + `, ` +
-							req.body.sucursal_id + `)`;
-						connection.query(query, function (err, result) {
-							if (err) {
-								res.json({ "error": err });
-							} else {
-								programacionDiariaCab_id = result.insertId;
-								registrarDetallePedido(res, programacionDiariaCab_id, req.body.detallePedido);
-							}
-						});
-					}
-				}
-			});
-	});
-
-	// Registrar programacion Diaria Pedido Especial
-	router.post("/programacionDiaria/especial", function (req, res) {
-
-		connection.query(`
-			SELECT	id
-			FROM 	programacionDiariaCab
-			WHERE 	fecha = ` + req.body.fecha + ` AND
-					sucursal_id = ` + req.body.sucursal_id, function (err, rows) {
-				if (err) {
-					res.json({ "error": err });
-				} else {
-					var programacionDiariaCab_id = 0;
-					var continuar = false;
-					if (rows.length > 0) {
-						query = `
-						DELETE   
-						FROM  programacionDiariaEsp
-						WHERE programacionDiariaCab_id  =` + rows[0].id;
-						connection.query(query, function (err, result) {
-							if (err) {
-								res.json({ "error": err });
-							} else {
-								programacionDiariaCab_id = rows[0].id;
-								registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
-							}
-						});
-					} else {
-						query = `
-						INSERT  INTO programacionDiariaCab(
-								fecha,
-								sucursal_id)
-						VALUES(` + req.body.fecha + `, ` +
-							req.body.sucursal_id + `)`;
-						connection.query(query, function (err, result) {
-							if (err) {
-								res.json({ "error": err });
-							} else {
-								programacionDiariaCab_id = result.insertId;
-								registrarDetalleEspecial(res, programacionDiariaCab_id, req.body.detalleEspecial);
 							}
 						});
 					}
@@ -317,22 +173,11 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 				INSERT  INTO programacionDiariaNor(
 						programacionDiariaCab_id,
 						torta_id,
-						tamano_id,
-						impreso,
-						fabricado,
-						camioneta,
-						guiaDespacho,
-						recepcionado,
-						vendido)
+						tamano_id)
 				VALUES(` + programacionDiariaCab_id + `, ` +
 				item.torta_id + `,` +
-				item.tamano_id + `, ` +
-				item.impreso + `, ` +
-				item.fabricado + `, ` +
-				item.camioneta + `, ` +
-				item.guiaDespacho + `, ` +
-				item.recepcionado + `, ` +
-				item.vendido + `)`, function (err, result) {
+				item.tamano_id + 
+				 `)`, function (err, result) {
 					if (err) {
 						res.json({ "error": err });
 					} else {
@@ -340,96 +185,71 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 					}
 				});
 		}
-		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
-	}
-	function registrarDetalleSobrante(res, programacionDiariaCab_id, detalleSobrante) {
-		var itemOK = 0;
-		for (var index = 0; index < detalleSobrante.length; index++) {
-			item = detalleSobrante[index];
-			connection.query(`
-				INSERT  INTO programacionDiariaSob(
-						programacionDiariaCab_id,
-						torta_id,
-						tamano_id,
-						cantidad)
-				VALUES(` + programacionDiariaCab_id + `, ` +
-				item.torta_id + `,` +
-				item.tamano_id + `, ` +
-				item.cantidad + `)`, function (err, result) {
-					if (err) {
-						res.json({ "error": err });
-					} else {
-						itemOK++;
-					}
-				});
-		}
-		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
-	}
-	function registrarDetallePedido(res, programacionDiariaCab_id, detallePedido) {
-		var itemOK = 0;
-		for (var index = 0; index < detallePedido.length; index++) {
-			item = detallePedido[index];
-			connection.query(`
-				INSERT  INTO programacionDiariaPed(
-						programacionDiariaCab_id,
-						torta_id,
-						tamano_id,
-						impreso,
-						fabricado,
-						camioneta,
-						guiaDespacho,
-						recepcionado,
-						vendido)
-				VALUES(` + programacionDiariaCab_id + `, ` +
-				item.torta_id + `,` +
-				item.tamano_id + `, ` +
-				item.impreso + `, ` +
-				item.fabricado + `, ` +
-				item.camioneta + `, ` +
-				item.guiaDespacho + `, ` +
-				item.recepcionado + `, ` +
-				item.vendido + `)`, function (err, result) {
-					if (err) {
-						res.json({ "error": err });
-					} else {
-						itemOK++;
-					}
-				});
-		}
-		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
-	}
-	function registrarDetalleEspecial(res, programacionDiariaCab_id, detalleEspecial) {
-		var itemOK = 0;
-		for (var index = 0; index < detalleEspecial.length; index++) {
-			itemEspecial = detalleEspecial[index];
-			connection.query(`
-				INSERT  INTO programacionDiariaEsp(
-						programacionDiariaCab_id,
-						pedidoEspecial_id,
-						impreso,
-						fabricado,
-						camioneta,
-						guiaDespacho,
-						recepcionado,
-						vendido)
-				VALUES(` + programacionDiariaCab_id + `, ` +
-				itemEspecial.pedidoEspecial_id + `,` +
-				itemEspecial.impreso + `, ` +
-				itemEspecial.fabricado + `, ` +
-				itemEspecial.camioneta + `, ` +
-				itemEspecial.guiaDespacho + `, ` +
-				itemEspecial.recepcionado + `, ` +
-				itemEspecial.vendido + `)`, function (err, result) {
-					if (err) {
-						res.json({ "error": err });
-					} else {
-						itemOK++;
-					}
-				});
-		}
-		res.json({ "id": programacionDiariaCab_id, "items": itemOK });
+		registrarDetalleSobrante(programacionDiariaCab_id, res);
 	}
 
+	function registrarDetalleSobrante(programacionDiariaCab_id, res) {
+		connection.query(`
+			INSERT	INTO programacionDiariaSob(
+				programacionDiariaCab_id,
+				torta_id,
+				tamano_id,
+				cantidad)
+			SELECT	PCAB.id,
+					SDET.torta_id,
+					SDET.tamano_id,
+					SDET.cantidad
+			FROM	sobranteCab SCAB INNER JOIN sobranteDet SDET ON SCAB.id = SDET.sobranteCab_id
+					                 INNER JOIN programacionDiariaCab PCAB ON SCAB.fecha = DATE_ADD(PCAB.fecha, INTERVAL -1 DAY) AND
+									                                          SCAB.sucursal_id = PCAB.sucursal_id
+			WHERE   PCAB.id = ` + programacionDiariaCab_id, function (err, result) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					registrarDetallePedido(programacionDiariaCab_id, res);
+					// registrarDetalleEspecial(res, programacionDiariaCab_id);
+				}
+			});
+	}
+
+	function registrarDetallePedido(programacionDiariaCab_id, res) {
+		connection.query(`
+			INSERT	INTO programacionDiariaPed(
+				programacionDiariaCab_id,
+				torta_id,
+				tamano_id)
+			SELECT	PCAB.id,
+					PED.torta_id,
+					PED.tamano_id
+			FROM	pedido PED INNER JOIN programacionDiariaCab PCAB ON DATE_FORMAT(PED.fechaEntrega, "%Y/%m/%d") = PCAB.fecha AND
+									                                          PED.sucursalRetiro = PCAB.sucursal_id
+			WHERE   PCAB.id = ` + programacionDiariaCab_id, function (err, result) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					registrarDetalleEspecial(res, programacionDiariaCab_id);
+				}
+			});
+	}
+
+	function registrarDetalleEspecial(res, programacionDiariaCab_id) {
+		connection.query(`
+			INSERT	INTO programacionDiariaEsp(
+				programacionDiariaCab_id,
+				pedidoEspecial_id)
+			SELECT	PCAB.id,
+					ESP.id
+			FROM	pedidoEspecial ESP INNER JOIN programacionDiariaCab PCAB ON DATE_FORMAT(ESP.fechaEntrega, "%Y/%m/%d") = PCAB.fecha AND
+																			ESP.sucursal_id = PCAB.sucursal_id
+			WHERE   PCAB.id = ` + programacionDiariaCab_id, function (err, result) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					// registrarDetalleEspecial(programacionDiariaCab_id);
+					// res.json({ "Mensaje": "Datos ingresados" });
+				}
+			});
+	}
 
 }
 module.exports = REST_ROUTER;

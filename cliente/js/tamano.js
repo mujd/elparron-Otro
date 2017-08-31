@@ -1,9 +1,7 @@
 var tamano = {
 	nombre: "tamano",
 	paginaInicial: "tamano.html",	
-	listar: function() {
-		//ajaxGet(rutaURL + "/tamano");
-	}
+	listar: function() {}
 }
 
 function tamanoSerializar() {
@@ -72,8 +70,9 @@ function tamanoCargar() {
 			tamanoValidaTextos();	
 		});
 		$("#btnEliminarTamano").click(function() {  
-			tamanoEliminar(); 
-		});	
+				tamanoEliminar();
+				$('#modalEliminarTamano').modal('toggle'); 
+		});
 	});
 }
 
@@ -92,12 +91,3 @@ function tamanoValidaTextos() {
 		tamanoRegistrar();
 	}
 }
-
-// function tamanoValidaTextos(){
-// 	if($("#txtNum").val() != 0 && $("#txtPersonas").val() != 0){
-// 		tamanoRegistrar(); 
-// 		$("#divTamanoError").toggle(function(){ $("#divTamanoError").append("");	});
-// 	}else{
-// 		$("#divTamanoError").append("<div class='alert alert-danger' role='alert'>*¡¡Por favor ingrese numero y personas!!*</div>");
-// 		}
-// 	}
