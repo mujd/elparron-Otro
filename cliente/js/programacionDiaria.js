@@ -181,12 +181,11 @@ function programacionDiariaNuevo(tipo) {
 		data.detalleNormal.push(item);
 	});
 	return data;
-
 } 
 
 function programacionDiariaNormalRegistrar() {
 	var oDataNor = programacionDiariaNormalSerializar();
-	alert(JSON.stringify(oDataNor));
+	// alert(JSON.stringify(oDataNor));
 	var mensaje = 'Datos Registrados ';
 	ajaxPost(rutaURL + "/programacionDiaria/normal",oDataNor);
 	$('#alertModalReg').find('.modal-body p').text(mensaje);
