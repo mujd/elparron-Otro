@@ -23,11 +23,11 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 								fecha: rows[item].fecha,
 								sucursal_id: rows[item].sucursal_id,
 								sucursal_nombre: rows[item].sucursal_nombre,
-								detalle: []
+								detalleSob: []
 							}
 						);
 					}
-					json[json.length - 1].detalle.push(
+					json[json.length - 1].detalleSob.push(
 						{
 							cantidad: rows[item].cantidad,
 							masaTipo_id: rows[item].masaTipo_id,
@@ -64,8 +64,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 					SAB.id AS sabor_id,
 					SAB.nombre AS sabor_nombre,
 					TAM.id AS tamano_id,
-					TAM.personas AS personas,
-					TOR.id AS torta_id
+					TAM.personas AS personas
 			FROM 	sobranteCab SCAB INNER JOIN sucursal SUC ON SCAB.sucursal_id = SUC.id
 					              INNER JOIN sobranteDet SDET ON SCAB.id = SDET.sobranteCab_id
 					              INNER JOIN tamano TAM ON SDET.tamano_id = TAM.id
@@ -138,7 +137,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 							res.json({"error": err});
 						} else {
 							sobranteCab_id = rows[0].id;
-							registraDetalle(res, sobranteCab_id, req.body.detalle);
+							registraDetalle(res, sobranteCab_id, req.body.detalleSob);
 						}
 					});
 				} else {
@@ -153,7 +152,7 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 							res.json({"error": err});
 						} else {
 							sobranteCab_id = result.insertId;
-							registraDetalle(res, sobranteCab_id, req.body.detalle);
+							registraDetalle(res, sobranteCab_id, req.body.detalleSob);
 						}
 					});
 				}
@@ -161,10 +160,10 @@ REST_ROUTER.prototype.handleRoutes = function(router, connection, md5) {
 		});
 	});
 
-	function registraDetalle(res, sobranteCab_id, detalle) {
+	function registraDetalle(res, sobranteCab_id, detalleSob) {
 		var itemOK = 0;
-		for (var index = 0; index < detalle.length; index++) {
-			item = detalle[index];
+		for (var index = 0; index < detalleSob.length; index++) {
+			item = detalleSob[index];
 			connection.query(`
 				INSERT  INTO sobranteDet(
 						sobranteCab_id,

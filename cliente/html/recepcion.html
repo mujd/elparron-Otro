@@ -1,138 +1,100 @@
 <header>Recepcion</header>
 
 <div class="panel panel-default">
-	<div class="panel-body">
+	<div class="panel-body" id="panelPedido">
 		<div class="row">
-			 <!-- FECHA ENTREGA -->
-	        <div class="col-md-3">
-	            <div class="form-group">
-	            <label>Fecha y Hora</label>
-	                <div class='input-group date'>
-	                    <input type='text' class="form-control" id='dateRecepcion' placeholder="Seleccione Fecha y Hora" />
-	                    <span class="input-group-addon">
-	                        <span class="glyphicon glyphicon-calendar"></span>
-	                    </span>
-	                </div>
-	            </div>
-	            
-	        </div>
-	    </div>
-	    <div class="row">    
-			<!--RECEPCION ACTUAL-->
-			<div class="table-responsive col-md-12">
-				<table id="sobrantes" class="table table-striped table-bordered" cellspacing="0" cellpadding="0">
-					<thead class="text-center">
+			<!-- FECHA ENTREGA -->
+			<div class="col-md-3 col-xs-12 col-sm-6">
+				<div class="form-group">
+					<label class="tamanoLabelGeneral">Fecha</label>
+					<div class="input-group date">
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+						<input type="text" class="form-control col-md-4 tamanoInputGeneral" id="dateRecepcion" title="Seleccione Fecha">
+					</div>
+					<!-- /.input group -->
+				</div>
+			</div>
+			<div class="col-md-3 col-xs-12 col-sm-6">
+				<div class="form-group">
+					<label class="tamanoLabelGeneral">Sucursal</label>
+					<select id="cmbRecepcionSucursal" class="form-control select2 tamanoInputGeneral" title="Seleccione Sucursal">
+						<!--<option selected="selected">:: Seleccione una Sucursal::</option>			-->
+					</select>
+				</div>
+			</div>
+		</div>
+		<!-- Primera fila tablas -->
+		<div class="row" id="contenidoFilaUno">
+			<!--Programacion Normal-->
+			<div id="divRecepcion" class="table-responsive col-md-6 programacionDiaria-rueda-panel page1">
+				<table id="tabRecepcionProgramacionNormal" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
+					<thead>
 						<tr>
-							<th colspan="16" style="background-color: black; color: white">Recepción Actual</th>
+							<th colspan="6">Programación normal</th>
 						</tr>
 						<tr>
-							<th rowspan="2" style="vertical-align: middle;">Tipo</th>
-							<th rowspan="2" style="vertical-align: middle;">Sabor</th>						
-							<th colspan="7">Redondas</th>
-							<th colspan="6">Cuadradas</th>
-							<th rowspan="2" style="vertical-align: middle;">Total</th>
+							<th>Torta</th>
+							<th>1/2</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+							<th>Total</th>
 						</tr>
-						<tr> 
-							<th>6</th>
-							<th>12</th>
-							<th>18</th>
-							<th>24</th>
-							<th>30</th>
-							<th>40</th>
-							<th>50</th>
-							<th>12</th>
-							<th>18</th>
-							<th>25</th>
-							<th>30</th>
-							<th>40</th>
-							<th>50</th>			
-						</tr>	
-						
 					</thead>
-					<tbody>
+				</table>
+			</div>
+
+
+			<!--Sobrantes dia anterior-->
+			<div id="divRecepcionOtro" class="table-responsive col-md-6 programacionDiaria-rueda-panel page2">
+				<table id="tabRecepcionSobrante" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
+					<thead>
 						<tr>
-							<td>Biscocho</td>
-							<td>Piña</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<th colspan="6">Sobranes día anterior</th>
 						</tr>
-					</tbody>
+						<tr>
+							<th>Torta</th>
+							<th>1/2</th>
+							<th>1</th>
+							<th>2</th>
+							<th>3</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+
+		</div>
+		<br><br>
+		<!-- Segunda fila tablas -->
+		<div class="row">
+			<!--Recepcion Pedido Especial-->
+			<div id="divPEPD" class="table-responsive col-md-6 programacionDiaria-rueda-panel">
+				<table id="tabPedidoEspecialRecepcion" class="table table-striped table-bordered table-condensed programacionDiariaTablas tableHover">
+					<thead>
+						<tr>
+							<th colspan="5">Pedidos Especiales</th>
+						</tr>
+						<tr>
+							<th>N°</th>
+							<th>Torta</th>
+							<th>Tamaño</th>
+							<th>Forma</th>
+							<th>Diet</th>
+							<!-- <th>Total</th> -->
+						</tr>
+					</thead>
 				</table>
 			</div>
 		</div>
-		<div class="row">
-			<!--SOBRANTES DIA ANTERIOR-->
-			<div class="table-responsive col-md-12">
-				<table id="sobrantes" class="table table-striped table-bordered" cellspacing="0" cellpadding="0">
-					<thead class="text-center">
-						<tr>
-							<th colspan="16" style="background-color: black; color: white">Sobrantes Día Anterior</th>
-						</tr>
-						<tr>
-							<th rowspan="2" style="vertical-align: middle;">Tipo</th>
-							<th rowspan="2" style="vertical-align: middle;">Sabor</th>						
-							<th colspan="7">Redondas</th>
-							<th colspan="6">Cuadradas</th>
-							<th rowspan="2" style="vertical-align: middle;">Total</th>
-						</tr>
-						<tr> 
-							<th>6</th>
-							<th>12</th>
-							<th>18</th>
-							<th>24</th>
-							<th>30</th>
-							<th>40</th>
-							<th>50</th>
-							<th>12</th>
-							<th>18</th>
-							<th>25</th>
-							<th>30</th>
-							<th>40</th>
-							<th>50</th>			
-						</tr>	
-						
-					</thead>
-					<tbody>
-						<tr>
-							<td>Biscocho</td>
-							<td>Piña</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>	
-	</div> 
+	</div>
 </div>
 <script>
-
-	$(document).ready(function(){
-		recepcionCargarFechaYHora();		
-	});	
+	$(document).ready(function () {
+		recepcionCargarFecha();
+		recepcionCargar();
+	});
 
 </script>

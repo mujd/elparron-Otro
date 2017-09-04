@@ -34,6 +34,7 @@ function programacionDiariaDesplegarTortas(oData) {
 				<td><input type='text' value='0' id='txtCantidad_` + this.id + `_4' ></td>
 				<td id='tdTotal_` + this.id + `'></td>
 			</tr></tbody>`;
+			$("#txtID").append(this.id);
 	});
 
 	$("#tabProgramacionDiaria").append(htmlFila);
@@ -137,7 +138,7 @@ function programacionDiariaTotaliza() {
 function programacionDiariaNuevo(tipo) {
 
 	$("input[id^=txtCantidad_]").val("0");
-	$("input[id^=txtSobranteCantidad_]").val("0");	
+	$("input[id^=txtSobranteCantidad_]").val("0");
 	// $("input[id^=txtEspecialCantidad_]").val("0");	
 	$("td[id^=tdTotal_]").html("0");
 	$("#tdTotal06").html("0");
@@ -162,7 +163,7 @@ function programacionDiariaNuevo(tipo) {
 
 }
 
-  function programacionDiariaNormalSerializar() {
+function programacionDiariaNormalSerializar() {
 
 	var fecha = $("#dateProgramacionDiaria").val().split("/")[2] + $("#dateProgramacionDiaria").val().split("/")[1] + $("#dateProgramacionDiaria").val().split("/")[0];
 	var sucursal_id = $("#cmbProgramacionDiariaSucursal").val();
@@ -181,16 +182,25 @@ function programacionDiariaNuevo(tipo) {
 		data.detalleNormal.push(item);
 	});
 	return data;
-} 
+}
 
 function programacionDiariaNormalRegistrar() {
 	var oDataNor = programacionDiariaNormalSerializar();
 	// alert(JSON.stringify(oDataNor));
 	var mensaje = 'Datos Registrados ';
-	ajaxPost(rutaURL + "/programacionDiaria/normal",oDataNor);
+	ajaxPost(rutaURL + "/programacionDiaria/normal", oDataNor);
 	$('#alertModalReg').find('.modal-body p').text(mensaje);
 	$('#alertModalReg').modal('show')
-} 
+}
+
+function programacionDiariaNormalFechaImprimir() {
+	// var datos = programacionDiariaNormalSerializar();
+	var datos = $("#txtID").val();
+	alert(JSON.stringify(datos));
+	if (parseInt(datos) > 0) {
+		ajaxPut(rutaURL + "/programacionDiaria/normal/imprimir/" + datos);
+	}
+}
 
 function programacionDiariaDesplegarSucursal(oData) {
 	$("#cmbProgramacionDiariaSucursal option").remove();
@@ -201,8 +211,11 @@ function programacionDiariaDesplegarSucursal(oData) {
 }
 
 function programacionDiariaTortaListar() {
-	ajaxGet(rutaURL + "/torta", programacionDiariaDesplegarTortas);
+	ajaxGet(rutaURL + "/programacionDiaria/Normal");
+}
 
+function programacionDiariaTortaListar() {
+	ajaxGet(rutaURL + "/torta", programacionDiariaDesplegarTortas);
 }
 
 
@@ -228,20 +241,24 @@ function programacionDiariaCargar() {
 			programacionDiariaBuscar();
 			// sobProDiariaBuscar();
 		});
-		$("#dateProgramacionDiaria").click(function () { 
-			programacionDiariaBuscar(); 
+		$("#dateProgramacionDiaria").click(function () {
+			programacionDiariaBuscar();
 			// sobProDiariaBuscar();
-		}).blur(function () { 
-			programacionDiariaBuscar(); 
+		}).blur(function () {
+			programacionDiariaBuscar();
 			// sobProDiariaBuscar();
 		});
 		// $("#btnBuscarProgramacionDiaria").click(function () { programacionDiariaValidaBusqueda(); });
-		$("#btnNuevoProgramacionDiaria").click(function () { 
-			programacionDiariaNuevo(); 
+		$("#btnNuevoProgramacionDiaria").click(function () {
+			programacionDiariaNuevo();
 		});
-		 $("#btnRegistrarProgramacionDiaria").click(function () {
+		$("#btnRegistrarProgramacionDiaria").click(function () {
 			programacionDiariaValidaRegistro();
-		}); 
+		});
+		$("#btnImprimirProgramacionDiaria").click(function () {
+			programacionDiariaNormalFechaImprimir();
+		});
+
 	});
 }
 
@@ -289,7 +306,7 @@ function programacionDiariaValidaRegistro() {
 		$('#alertModal').modal('show')
 		return false;
 	} else {
-		 programacionDiariaNormalRegistrar();
+		programacionDiariaNormalRegistrar();
 	}
 }
 

@@ -41,11 +41,6 @@
 					"objeto": "stock"
 				},
 				{
-					"pagina": "recepcion.html",
-					"texto":  "Recepción",
-					"objeto": "recepcion"
-				},
-				{
 					"pagina": "sobrante.html",
 					"texto":  "Sobrantes",
 					"objeto": "sobrante"
@@ -74,6 +69,11 @@
 					"pagina": "tortaPrecio.html",
 					"texto":  "Torta Precio",
 					"objeto": "tortaPrecio"
+				},
+				{
+					"pagina": "recepcion.html",
+					"texto":  "Recepcion",
+					"objeto": "recepcion"
 				}
 			]
 		}		

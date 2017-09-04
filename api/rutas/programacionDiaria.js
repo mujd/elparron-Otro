@@ -7,9 +7,25 @@ function REST_ROUTER(router, connection, md5) {
 
 REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 
+	// Listar
+	/* router.get("/programacionDiaria/Normal", function (req, res) {
+		connection.query(`
+            SELECT  *
+			FROM    programacionDiariaNor
+			WHERE PD.id = ` + req.params.id + `
+            ORDER   BY
+                    id`, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+				} else {
+					res.json(rows);
+				}
+			});
+	}); */
+
 	// BÃºsqueda por ID
 	router.get("/programacionDiaria/:id", function (req, res) {
-		connection.query("SELECT SCAB.id, DATE_FORMAT(SCAB.fecha,'%d/%m/%Y') AS fecha, SUC.id AS sucursal_id, SUC.nombre AS sucursal_nombre, SDET.cantidad, MTP.id AS masaTipo_id, MTP.nombre AS masaTipo_nombre, MSB.id AS masaSabor_id, MSB.nombre AS masaSabor_nombre, SAB.id AS sabor_id, SAB.nombre AS sabor_nombre, TAM.id AS tamano_id, TAM.personas AS personas FROM programacionDiariaCab SCAB INNER JOIN sucursal SUC ON SCAB.sucursal_id = SUC.id INNER JOIN programacionDiariaDet SDET ON SCAB.id = SDET.programacionDiariaCab_id INNER JOIN tamano TAM ON SDET.tamano_id = TAM.id INNER JOIN torta TOR ON SDET.torta_id = TOR.id INNER JOIN masaTipo MTP ON TOR.masaTipo_id = MTP.id INNER JOIN masaSabor MSB ON TOR.masaSabor_id = MSB.id INNER JOIN sabor SAB ON TOR.sabor_id = SAB.id WHERE SCAB.id = " + req.params.id + " ORDER BY SDET.id", function (err, rows) {
+		connection.query("SELECT PD.id, DATE_FORMAT(PD.fecha,'%d/%m/%Y') AS fecha, SUC.id AS sucursal_id, SUC.nombre AS sucursal_nombre, SDET.cantidad, MTP.id AS masaTipo_id, MTP.nombre AS masaTipo_nombre, MSB.id AS masaSabor_id, MSB.nombre AS masaSabor_nombre, SAB.id AS sabor_id, SAB.nombre AS sabor_nombre, TAM.id AS tamano_id, TAM.personas AS personas FROM programacionDiariaCab PD INNER JOIN sucursal SUC ON PD.sucursal_id = SUC.id INNER JOIN programacionDiariaDet SDET ON PD.id = SDET.programacionDiariaCab_id INNER JOIN tamano TAM ON SDET.tamano_id = TAM.id INNER JOIN torta TOR ON SDET.torta_id = TOR.id INNER JOIN masaTipo MTP ON TOR.masaTipo_id = MTP.id INNER JOIN masaSabor MSB ON TOR.masaSabor_id = MSB.id INNER JOIN sabor SAB ON TOR.sabor_id = SAB.id WHERE PD.id = " + req.params.id + " ORDER BY SDET.id", function (err, rows) {
 			if (err) {
 				res.json({ "error": err });
 			} else {
@@ -51,11 +67,12 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 	// Buascar programacionDiaria por dia y sucursal
 	router.get("/programacionDiaria/:fecha/:sucursal_id", function (req, res) {
 		connection.query(`
-			SELECT	SCAB.id,
-					DATE_FORMAT(SCAB.fecha,'%d/%m/%Y') AS fecha,
+			SELECT	PD.id,
+					DATE_FORMAT(PD.fecha,'%d/%m/%Y') AS fecha,
 					SUC.id AS sucursal_id,
 					SUC.nombre AS sucursal_nombre,
 					SDET.cantidad,
+					TOR.id AS torta_id,
 					MTP.id AS masaTipo_id,
 					MTP.nombre AS masaTipo_nombre,
 					MSB.id AS masaSabor_id,
@@ -64,16 +81,15 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 					SAB.nombre AS sabor_nombre,
 					TAM.id AS tamano_id,
 					TAM.num AS num,
-					TAM.personas AS personas,
-					TOR.id AS torta_id
-			FROM 	programacionDiariaCab SCAB INNER JOIN sucursal SUC ON SCAB.sucursal_id = SUC.id
-					              INNER JOIN programacionDiariaDet SDET ON SCAB.id = SDET.programacionDiariaCab_id
+					TAM.personas AS personas					
+			FROM 	programacionDiariaCab PD INNER JOIN sucursal SUC ON PD.sucursal_id = SUC.id
+					              INNER JOIN programacionDiariaDet SDET ON PD.id = SDET.programacionDiariaCab_id
 					              INNER JOIN tamano TAM ON SDET.tamano_id = TAM.id
 					              INNER JOIN torta TOR ON SDET.torta_id = TOR.id
 					              INNER JOIN masaTipo MTP ON TOR.masaTipo_id = MTP.id
 					              INNER JOIN masaSabor MSB ON TOR.masaSabor_id = MSB.id
 					              INNER JOIN sabor SAB ON TOR.sabor_id = SAB.id
-			WHERE 	SCAB.fecha = ` + req.params.fecha + ` AND
+			WHERE 	PD.fecha = ` + req.params.fecha + ` AND
 					SUC.id = ` + req.params.sucursal_id + `
 			ORDER	BY
 					TOR.id,
@@ -176,8 +192,8 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 						tamano_id)
 				VALUES(` + programacionDiariaCab_id + `, ` +
 				item.torta_id + `,` +
-				item.tamano_id + 
-				 `)`, function (err, result) {
+				item.tamano_id +
+				`)`, function (err, result) {
 					if (err) {
 						res.json({ "error": err });
 					} else {
@@ -199,9 +215,9 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 					SDET.torta_id,
 					SDET.tamano_id,
 					SDET.cantidad
-			FROM	sobranteCab SCAB INNER JOIN sobranteDet SDET ON SCAB.id = SDET.sobranteCab_id
-					                 INNER JOIN programacionDiariaCab PCAB ON SCAB.fecha = DATE_ADD(PCAB.fecha, INTERVAL -1 DAY) AND
-									                                          SCAB.sucursal_id = PCAB.sucursal_id
+			FROM	sobranteCab PD INNER JOIN sobranteDet SDET ON PD.id = SDET.sobranteCab_id
+					                 INNER JOIN programacionDiariaCab PCAB ON PD.fecha = DATE_ADD(PCAB.fecha, INTERVAL -1 DAY) AND
+									                                          PD.sucursal_id = PCAB.sucursal_id
 			WHERE   PCAB.id = ` + programacionDiariaCab_id, function (err, result) {
 				if (err) {
 					res.json({ "error": err });
@@ -250,6 +266,51 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 				}
 			});
 	}
+
+	// Modificar impreso programacion Normal
+	router.put("/programacionDiaria/normal/imprimir/:programacionDiariaCab_id", function (req, res) {
+		connection.query(`
+            UPDATE  programacionDiariaNor
+            SET     impreso =  CURRENT_TIMESTAMP  
+            WHERE   programacionDiariaCab_id = ` + req.params.programacionDiariaCab_id, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+					console.log(err);
+				} else {
+					res.json("Programacion Diaria Normal fecha impresion modificada");
+				}
+			});
+	});
+
+	// Modificar impreso programacion Normal
+	router.put("/programacionDiaria/pedido/imprimir/:programacionDiariaCab_id", function (req, res) {
+		connection.query(`
+            UPDATE  programacionDiariaPed
+            SET     impreso =  CURRENT_TIMESTAMP  
+            WHERE   programacionDiariaCab_id = ` + req.params.programacionDiariaCab_id, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+					console.log(err);
+				} else {
+					res.json("Programacion Diaria Pedido fecha impresion modificada");
+				}
+			});
+	});
+
+	// Modificar impreso programacion Normal
+	router.put("/programacionDiaria/especial/imprimir/:programacionDiariaCab_id", function (req, res) {
+		connection.query(`
+            UPDATE  programacionDiariaEsp
+            SET     impreso =  CURRENT_TIMESTAMP  
+            WHERE   programacionDiariaCab_id = ` + req.params.programacionDiariaCab_id, function (err, rows) {
+				if (err) {
+					res.json({ "error": err });
+					console.log(err);
+				} else {
+					res.json("Programacion Diaria Pedido Especial, fecha impresion modificada");
+				}
+			});
+	});
 
 }
 module.exports = REST_ROUTER;
